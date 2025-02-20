@@ -3,20 +3,18 @@ package com.company.sistemabancario;
 public class Usuario {
 
     private String nome;
-    private String login;
-    private Endereco logradouro;
-    private Conta conta;
     private String nascimento;
     private String cpf;
-    private String email;
-    private String senha;
     private String telefone;
+    private Email email;
+    private Endereco logradouro;
+    private String login;
+    private String senha;
+    private Conta conta;
 
-    public Usuario() {
+    public Usuario() {}
 
-    }
-
-    public Usuario(String nome, Endereco logradouro, Conta conta, String nascimento, String cpf, String email, String senha, String telefone) {
+    public Usuario(String nome, Endereco logradouro, Conta conta, String nascimento, String cpf, Email email, String senha, String telefone) {
         this.nome = nome;
         this.login = login;
         this.logradouro = logradouro;
@@ -53,11 +51,11 @@ public class Usuario {
     }
 
     public String getEmail() {
-        return email;
+        return email.getEmail();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email) throws EmailException {
+        this.email = new Email(email);
     }
 
     public String getSenha() {
@@ -76,7 +74,7 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getLogin(){
+    public String getLogin() {
         return login;
     }
 }
