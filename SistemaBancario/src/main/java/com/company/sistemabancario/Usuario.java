@@ -2,7 +2,7 @@ package com.company.sistemabancario;
 
 public class Usuario {
 
-    private String nome;
+    private Nome nome;
     private String nascimento;
     private String cpf;
     private String telefone;
@@ -14,7 +14,7 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String nome, Endereco logradouro, Conta conta, String nascimento, String cpf, Email email, String senha, String telefone) {
+    public Usuario(Nome nome, Endereco logradouro, Conta conta, String nascimento, String cpf, Email email, String senha, String telefone) {
         this.nome = nome;
         this.login = login;
         this.logradouro = logradouro;
@@ -26,7 +26,7 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getNome() {
+    public Nome getNome() {
         return nome;
     }
 
