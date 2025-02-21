@@ -2,7 +2,7 @@ package com.company.sistemabancario;
 
 public class Usuario {
 
-    private Nome nome;
+    private String nome;
     private String nascimento;
     private String cpf;
     private String telefone;
@@ -10,24 +10,35 @@ public class Usuario {
     private Endereco logradouro;
     private String login;
     private String senha;
-    private Conta conta;
 
     public Usuario() {}
 
-    public Usuario(Nome nome, Endereco logradouro, Conta conta, String nascimento, String cpf, Email email, String senha, String telefone) {
-        this.nome = nome;
+    public Usuario(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, String telefone)
+    throws NameException, CPFException
+    {
+        setName(nome);
         this.login = login;
         this.logradouro = logradouro;
-        this.conta = conta;
         this.nascimento = nascimento;
-        this.cpf = cpf;
+        setCPF(cpf);
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
     }
 
-    public Nome getNome() {
+    public String getName() {
         return nome;
+    }
+    
+    public boolean isValidName(String nome) {
+        return nome.length() > 1;
+    }
+
+    public void setName(String nome) throws NameException {
+        if (!isValidName(nome)) {
+            throw new NameException();
+        }
+        this.nome = nome;
     }
 
     public Endereco getLogradouro() {
@@ -38,16 +49,18 @@ public class Usuario {
         this.logradouro = logradouro;
     }
 
-    public Conta getConta() {
-        return conta;
-    }
-
     public String getNascimento() {
         return nascimento;
     }
 
     public String getCpf() {
         return cpf;
+    }
+    
+    public void setCPF(String cpf) throws CPFException {
+        if(!ValidaCPF.isCPF(cpf))
+            throw new CPFException();
+        this.cpf = cpf;
     }
 
     public String getEmail() {
