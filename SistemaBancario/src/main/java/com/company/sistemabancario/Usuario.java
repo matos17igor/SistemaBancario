@@ -1,5 +1,9 @@
 package com.company.sistemabancario;
 
+import com.company.exception.EmailException;
+import com.company.exception.NameException;
+import com.company.exception.CPFException;
+
 public class Usuario {
 
     private String nome;

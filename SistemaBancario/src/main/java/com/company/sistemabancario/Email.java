@@ -1,6 +1,6 @@
 package com.company.sistemabancario;
 
-import com.company.sistemabancario.EmailException;
+import com.company.exception.EmailException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
