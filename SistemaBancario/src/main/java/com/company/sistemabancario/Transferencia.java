@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Transferencia extends Operacao{
     
-    private Conta contaDestino;
+    private Conta destino;
     
-    public Transferencia(Conta contaAutor,double valor, Conta destino){
+    public Transferencia(Conta origem,double valor, Conta destino){
         
-        super(contaAutor, valor);
-        this.contaDestino = destino;
+        super(origem, valor);
+        this.destino = destino;
     }
 }

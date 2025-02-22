@@ -18,7 +18,8 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, String telefone, Conta conta)
+    public Usuario(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, 
+    String telefone, Conta conta)
     throws NameException, CPFException
     {
         setName(nome);
