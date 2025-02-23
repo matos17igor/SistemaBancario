@@ -35,7 +35,7 @@ public class Usuario {
     }
     
     public boolean isValidName(String nome) {
-        return nome.length() > 1;
+        return nome.length() > 1;               //Verifica se o nome possui mais de um caractere
     }
 
     public void setName(String nome) throws NameException {
