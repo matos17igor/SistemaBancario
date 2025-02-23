@@ -8,6 +8,7 @@ public class Conta {
     private double saldo;
     private String senhaTransacao;
     private String titular;
+    private Gerente gerente; //Como escolher qual gerente será o da conta??
     private List<Transferencia> transferencias;
     private List<Saque> saques;
     private List<Deposito> depositos;
