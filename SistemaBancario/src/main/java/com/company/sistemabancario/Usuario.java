@@ -14,10 +14,12 @@ public class Usuario {
     private Endereco logradouro;
     private String login;
     private String senha;
+    private Conta conta;
 
     public Usuario() {}
 
-    public Usuario(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, String telefone)
+    public Usuario(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, 
+    String telefone, Conta conta)
     throws NameException, CPFException
     {
         setName(nome);
@@ -28,6 +30,7 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
+        this.conta = conta;
     }
 
     public String getName() {
@@ -93,5 +96,13 @@ public class Usuario {
 
     public String getLogin() {
         return login;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
     }
 }
