@@ -4,7 +4,7 @@ import com.company.exception.EmailException;
 import com.company.exception.NameException;
 import com.company.exception.CPFException;
 
-public class Usuario {
+public abstract class Usuario {
 
     private String nome;
     private String nascimento;
@@ -95,4 +95,6 @@ public class Usuario {
     public String getLogin() {
         return login;
     }
+    
+    public abstract void exibirMenu();
 }
