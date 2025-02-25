@@ -3,6 +3,7 @@ package com.company.model;
 import com.company.exception.CPFException;
 import com.company.exception.NameException;
 import com.company.exception.SaldoException;
+import com.company.exception.PasswordException;
 
 public class Cliente extends Usuario {
     
@@ -35,12 +36,14 @@ public class Cliente extends Usuario {
         this.conta = conta;
     }
     
-    public void realizaTransferencia(double valor, Conta destino) throws SaldoException{
+    public void realizaTransferencia(double valor, Conta destino, String senha) throws SaldoException, PasswordException{
         
         //Se o saldo da conta de origem for menor que o valor da transferecnia,
         //cancela a operação.
         if(this.conta.getSaldo() < valor)
             throw new SaldoException();
+        if(!senha.equals(this.conta.getSenhaTransacao()))
+            throw new PasswordException();
         
         //Cria nova transferencia e a adiciona as contas de origem e destino
         Transferencia tr = new Transferencia(this.conta , valor, destino);

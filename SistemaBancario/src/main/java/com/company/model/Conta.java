@@ -14,7 +14,7 @@ public class Conta {
     private List<Deposito> depositos;
     private List<Investimento> investimentos;
     private List<Emprestimo> emprestimos;
-    private List<Financiamento> financiamento;
+    private List<Financiamento> financiamentos;
 
     public Conta() {
         
@@ -75,8 +75,8 @@ public class Conta {
         return emprestimos;
     }
 
-    public List<Financiamento> getFinanciamento() {
-        return financiamento;
+    public List<Financiamento> getFinanciamentos() {
+        return financiamentos;
     }
     
 }
