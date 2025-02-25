@@ -3,6 +3,7 @@ package com.company.model;
 import com.company.exception.CPFException;
 import com.company.exception.NameException;
 import com.company.exception.SaldoException;
+import com.company.exception.PasswordException;
 
 public class Caixa extends Usuario{
     
@@ -19,33 +20,46 @@ public class Caixa extends Usuario{
         System.out.println("3. Executar Transferência");
     }
     
-    public void processarSaque(Cliente cliente, double valor, String senhaTransacao) throws SaldoException {
+    public void processarSaque(Cliente cliente, double valor, String senhaTransacao) throws SaldoException, PasswordException {
         Conta conta = cliente.getConta();
         if(!conta.getSenhaTransacao().equals(senhaTransacao)) {
-            System.out.println("Senha de transacao invalida!");
-            return;
+            throw new PasswordException();
         } 
         
         if(conta.getSaldo() < valor){
             throw new SaldoException();
         }
         
+        Saque saque = new Saque(conta, valor);
+        conta.getSaques().add(saque);
         conta.setSaldo(conta.getSaldo() - valor);
         System.out.println("Saque de R$ " + valor + " realizado com sucesso para o cliente " + cliente.getName());
     }
     
-    public void processarDeposito(Cliente cliente, double valor){
-        Conta conta = cliente.getConta();
-        conta.setSaldo(conta.getSaldo() + valor);
-        System.out.println("Deposito de R$ " + valor + " realizado com sucesso para o cliente " + cliente.getName());
+    public void processarDeposito(Conta origem, Conta destino, double valor){
+        Deposito deposito = new Deposito(origem, valor, destino);
+        
+        //Se o deposito for destinado a propria conta
+        if(origem.equals(destino)){
+            origem.getDepositos().add(deposito);
+            origem.setSaldo(origem.getSaldo() + valor);
+        }
+        else{
+            //Se o deposito for destinado à outra conta
+            destino.getDepositos().add(deposito);
+            destino.setSaldo(destino.getSaldo() + valor);
+        }
+        
+        System.out.println("Deposito de R$ " + valor + " realizado com sucesso");
     }
     
-    public void processarTransferencia(Cliente clienteOrigem, Conta contaDestino, double valor, String senhaTransacao) throws SaldoException {
+    public void processarTransferencia(Cliente clienteOrigem, Conta contaDestino, double valor, String senhaTransacao) 
+        throws SaldoException, PasswordException {
+        
         Conta contaOrigem = clienteOrigem.getConta();
         
         if(!contaOrigem.getSenhaTransacao().equals(senhaTransacao)){
-            System.out.println("Senha de transacao invalida!");
-            return;
+            throw new PasswordException();
         }
         
         if(contaOrigem.getSaldo() < valor){
