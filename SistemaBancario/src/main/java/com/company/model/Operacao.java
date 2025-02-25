@@ -11,11 +11,10 @@ public class Operacao {
     private Date data;
     
     public Operacao(Conta autor, double valor){
-        this.id = idAtual;
+        this.id = ++idAtual;
         this.origem = autor;
         this.valor = valor;
         this.data = new Date();
-        idAtual++;
     }
     
 }
