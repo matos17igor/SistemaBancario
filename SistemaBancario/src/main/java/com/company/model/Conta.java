@@ -1,4 +1,4 @@
-package com.company.sistemabancario;
+package com.company.model;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ public class Conta {
     private List<Saque> saques;
     private List<Deposito> depositos;
     private List<Investimento> investimentos;
+    private List<Emprestimo> emprestimos;
+    private List<Financiamento> financiamento;
 
     public Conta() {
         
@@ -67,6 +69,14 @@ public class Conta {
 
     public List<Investimento> getInvestimentos() {
         return investimentos;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public List<Financiamento> getFinanciamento() {
+        return financiamento;
     }
     
 }

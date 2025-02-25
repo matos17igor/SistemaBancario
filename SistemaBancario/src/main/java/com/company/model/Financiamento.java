@@ -1,19 +1,21 @@
-package com.company.sistemabancario;
+package com.company.model;
 
 import java.util.Date;
 
-public class Emprestimo {
+public class Financiamento {
     
     private Cliente cliente;
     private double valor;
+    private double entrada;
     private int parcelas;
     private double juros;
     private Date data;
     
-    public Emprestimo(Cliente cliente, double valor, int parcelas, double juros){
+    public Financiamento(Cliente cliente, double valor, double entrada, int parcelas, double juros){
         
         this.cliente = cliente;
         this.valor = valor;
+        this.entrada = entrada;
         this.parcelas = parcelas;
         this.juros = juros;
         this.data = new Date();
@@ -26,7 +28,10 @@ public class Emprestimo {
     public double getValor() {
         return valor;
     }
-
+    
+    public double getEntrada() {
+        return entrada;
+    }
     public int getParcelas() {
         return parcelas;
     }

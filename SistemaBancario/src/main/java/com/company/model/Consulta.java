@@ -1,4 +1,4 @@
-package com.company.sistemabancario;
+package com.company.model;
 
 public interface Consulta {
     

@@ -1,4 +1,4 @@
-package com.company.sistemabancario;
+package com.company.model;
 
 public class InvestimentoRendaFixa extends Investimento {
     private int prazoMinimo;

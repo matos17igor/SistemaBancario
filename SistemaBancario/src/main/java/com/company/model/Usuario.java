@@ -1,4 +1,4 @@
-package com.company.sistemabancario;
+package com.company.model;
 
 import com.company.exception.EmailException;
 import com.company.exception.NameException;

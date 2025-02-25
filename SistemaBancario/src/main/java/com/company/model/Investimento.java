@@ -1,4 +1,4 @@
-package com.company.sistemabancario;
+package com.company.model;
 
 public abstract class Investimento {
     protected String nome;
@@ -13,6 +13,14 @@ public abstract class Investimento {
     
     public String getNome(){
         return nome;
+    }
+    
+    public double getValorMinimo() {
+        return valorMinimo;
+    }
+
+    public double getTaxaRendimento() {
+        return taxaRendimento;
     }
     
     public abstract double calcularRendimento(double valorInvestido, int meses);
