@@ -1,7 +1,9 @@
 package com.company.view;
 
+import com.company.view.paineis.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 
 public class TelaCliente {
@@ -9,8 +11,11 @@ public class TelaCliente {
     private JFrame tela;
     private JPanel painelBotoes;
     private JPanel painelSuperior;
-    private final int WIDTH = 600;
-    private final int HEIGHT = 400;
+    private JPanel painelPrincipal;
+    private CardLayout cardLayout;
+    
+    private final int WIDTH = 800;
+    private final int HEIGHT = 600;
     
     private JButton btnTransferencia;
     private JButton btnConsulta;
@@ -30,16 +35,16 @@ public class TelaCliente {
         
         desenhaPainelSuperior();
         desenhaPainelBotoes();
+        desenhaPainelPrincipal();
         
+        tela.setResizable(false);
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-        
-        
     }
     
     public void desenhaPainelSuperior(){
         painelSuperior = new JPanel();
-        painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
         
         mensagem = new JLabel("Bem-vindo, USER!");
         saldo = new JLabel("Saldo: R$0,00");
@@ -54,23 +59,76 @@ public class TelaCliente {
     
     public void desenhaPainelBotoes(){
         painelBotoes = new JPanel();
-        painelBotoes.setLayout(new GridLayout(5, 1, 5, 5));
+        painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));
         
-        
-        
-        btnConsulta = new JButton("Realizar transferência");
-        btnTransferencia = new JButton("Consulta de Saldo/Extrato");        
+        btnConsulta = new JButton("Consulta de Saldo/Extrato");
+        btnTransferencia = new JButton("Realizar transferência");        
         btnRendaFixa = new JButton("Investimento em Renda Fixa");       
         btnRendaVariavel = new JButton("Investimento em Renda Variável");
         btnSolicitacao = new JButton("Solicitação de Crédito");
         
-        painelBotoes.add(btnTransferencia);
-        painelBotoes.add(btnConsulta);
-        painelBotoes.add(btnRendaFixa);
-        painelBotoes.add(btnRendaVariavel);
-        painelBotoes.add(btnSolicitacao);
+        Dimension btnSize = new Dimension(200, 50);
+        btnTransferencia.setPreferredSize(btnSize);
+        btnTransferencia.setMaximumSize(btnSize); 
+        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        tela.add(painelBotoes, BorderLayout.CENTER);
+
+        btnConsulta.setPreferredSize(btnSize);
+        btnConsulta.setMaximumSize(btnSize);
+        btnConsulta.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnRendaFixa.setPreferredSize(btnSize);
+        btnRendaFixa.setMaximumSize(btnSize);
+        btnRendaFixa.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnRendaVariavel.setPreferredSize(btnSize);
+        btnRendaVariavel.setMaximumSize(btnSize);
+        btnRendaVariavel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnSolicitacao.setPreferredSize(btnSize);
+        btnSolicitacao.setMaximumSize(btnSize);
+        btnSolicitacao.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnTransferencia);
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnConsulta);
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnRendaFixa);
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnRendaVariavel);
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnSolicitacao);
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));
+        
+        tela.add(painelBotoes, BorderLayout.WEST);
+        
+        btnTransferencia.addActionListener(e -> mostrarPainel("transferencia"));
+        btnConsulta.addActionListener(e -> mostrarPainel("consulta"));
+        btnRendaFixa.addActionListener(e -> mostrarPainel("rendaFixa"));
+        btnRendaVariavel.addActionListener(e -> mostrarPainel("rendaVariavel"));
+        btnSolicitacao.addActionListener(e -> mostrarPainel("solicitacao"));
+    }
+
+    private void desenhaPainelPrincipal() {
+        cardLayout = new CardLayout();
+        painelPrincipal = new JPanel(cardLayout);
+
+        painelPrincipal.add(new JPanel(), "vazio");
+        painelPrincipal.add(new PainelTransferencia(), "transferencia");
+        painelPrincipal.add(new PainelConsulta(), "consulta");
+        painelPrincipal.add(new PainelRendaFixa(), "rendaFixa");
+        painelPrincipal.add(new PainelRendaVariavel(), "rendaVariavel");
+        painelPrincipal.add(new PainelSolicitacao(), "solicitacao");
+        painelPrincipal.setBorder(new EmptyBorder(0, 0, 0, 70));
+
+        tela.add(painelPrincipal, BorderLayout.EAST);
+        cardLayout.show(painelPrincipal, "vazio");
+    }
+    
+    private void mostrarPainel(String nomePainel) {
+        cardLayout.show(painelPrincipal, nomePainel);
     }
 
 }
