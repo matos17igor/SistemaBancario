@@ -64,7 +64,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
+<<<<<<< HEAD
             <version>RELEASE230</version>
+=======
+            <version>RELEASE240</version>
+>>>>>>> main
         </dependency>
     </dependencies>
 </project>
