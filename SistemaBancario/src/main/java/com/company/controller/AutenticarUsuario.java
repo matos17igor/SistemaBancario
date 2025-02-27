@@ -1,13 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.company.controller;
 
-/**
- *
- * @author ice
- */
-public class AutenticarUsuario {
-    
+import com.company.view.TelaLogin;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AutenticarUsuario implements ActionListener {
+
+    private final TelaLogin tela;
+
+    public AutenticarUsuario(TelaLogin tela) {
+        this.tela = tela;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        tela.autenticarUsuario();
+    }
 }

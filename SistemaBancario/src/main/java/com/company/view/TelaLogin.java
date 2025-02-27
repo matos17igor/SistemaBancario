@@ -1,6 +1,7 @@
 package com.company.view;
 
 import javax.swing.*;
+import com.company.controller.*;
 
 public class TelaLogin {
 
@@ -39,7 +40,12 @@ public class TelaLogin {
 
         btnLogin = new JButton("Entrar");
         btnLogin.setBounds(100, 100, 100, 30);
+        btnLogin.addActionListener(new AutenticarUsuario(this));
         tela.add(btnLogin);
+    }
+    
+    public void autenticarUsuario(){
+        
     }
 
 }
