@@ -9,6 +9,8 @@ public class Cliente extends Usuario {
     
     private Conta conta;
     
+    public Cliente (){}
+    
     public Cliente(String nome, Endereco logradouro, String nascimento, String cpf, Email email, 
     String senha, String telefone, Conta conta)
             
@@ -16,16 +18,6 @@ public class Cliente extends Usuario {
     {
         super(nome, logradouro, nascimento, cpf, email, senha, telefone);
         this.conta = conta;
-    }
-    
-    @Override
-    public void exibirMenu() {
-        System.out.println("Menu Cliente:");
-        System.out.println("1. Transferência");
-        System.out.println("2. Consulta de Saldo/Extrato");
-        System.out.println("3. Investimento em Renda Fixa");
-        System.out.println("4. Investimento em Renda Variável");
-        System.out.println("5. Solicitação de Crédito");
     }
     
     public Conta getConta() {

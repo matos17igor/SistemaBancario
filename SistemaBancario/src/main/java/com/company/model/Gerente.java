@@ -15,15 +15,6 @@ public class Gerente extends Usuario{
         super(nome, logradouro, nascimento, cpf, email, senha, telefone);
     }
     
-    @Override
-    public void exibirMenu(){
-        System.out.println("Menu Gerente:");
-        System.out.println("1. Apoio em Movimentações Financeiras");
-        System.out.println("2. Cadastro de Investimentos em Renda Fixa");
-        System.out.println("3. Cadastro de Investimentos em Renda Variável");
-        System.out.println("4. Avaliação de Crédito");
-    }
-    
     public void apoiarMovimentacao(Conta cliente, String operacao, String senhaConfirmacao) throws PasswordException{
         if(!cliente.getSenhaTransacao().equals(senhaConfirmacao)) {
             throw new PasswordException();

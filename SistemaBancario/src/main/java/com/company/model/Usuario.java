@@ -4,7 +4,7 @@ import com.company.exception.EmailException;
 import com.company.exception.NameException;
 import com.company.exception.CPFException;
 
-public abstract class Usuario {
+public class Usuario {
 
     private int id;
     private static int idAtual = 0;
@@ -32,6 +32,10 @@ public abstract class Usuario {
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
+    }
+    
+    public int getId(){
+        return id;
     }
 
     public String getName() {
@@ -99,5 +103,7 @@ public abstract class Usuario {
         return login;
     }
     
-    public abstract void exibirMenu();
+    public void setLogin(String login){
+        this.login = login;
+    }
 }

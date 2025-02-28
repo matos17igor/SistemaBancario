@@ -1,22 +1,22 @@
 package com.company.view;
 
+import com.company.model.Cliente;
 import com.company.view.paineis.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-
 public class TelaCliente {
-    
+
     private JFrame tela;
     private JPanel painelBotoes;
     private JPanel painelSuperior;
     private JPanel painelPrincipal;
     private CardLayout cardLayout;
-    
+
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    
+
     private JButton btnTransferencia;
     private JButton btnConsulta;
     private JButton btnRendaFixa;
@@ -24,54 +24,62 @@ public class TelaCliente {
     private JButton btnSolicitacao;
     private JLabel mensagem;
     private JLabel saldo;
+    private Cliente cliente;
 
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-    
-    public void desenha() {
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void desenha(Cliente c) {
         tela = new JFrame("Menu Cliente");
         tela.setSize(WIDTH, HEIGHT);
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setLayout(new BorderLayout());
-        
+        setCliente(c);
+
         desenhaPainelSuperior();
         desenhaPainelBotoes();
         desenhaPainelPrincipal();
-        
+
         tela.setResizable(false);
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
+
     }
-    
-    public void desenhaPainelSuperior(){
+
+    public void desenhaPainelSuperior() {
         painelSuperior = new JPanel();
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
-        
-        mensagem = new JLabel("Bem-vindo, USER!");
+
+        mensagem = new JLabel("Bem-vindo " + getCliente().getName());
         saldo = new JLabel("Saldo: R$0,00");
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
         saldo.setFont(new Font("Arial", Font.PLAIN, 16));
-        
+
         painelSuperior.add(mensagem);
         painelSuperior.add(saldo);
-        
+
         tela.add(painelSuperior, BorderLayout.NORTH);
     }
-    
-    public void desenhaPainelBotoes(){
+
+    public void desenhaPainelBotoes() {
         painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));
-        
+
         btnConsulta = new JButton("Consulta de Saldo/Extrato");
-        btnTransferencia = new JButton("Realizar transferência");        
-        btnRendaFixa = new JButton("Investimento em Renda Fixa");       
+        btnTransferencia = new JButton("Realizar transferência");
+        btnRendaFixa = new JButton("Investimento em Renda Fixa");
         btnRendaVariavel = new JButton("Investimento em Renda Variável");
         btnSolicitacao = new JButton("Solicitação de Crédito");
-        
+
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
-        btnTransferencia.setMaximumSize(btnSize); 
+        btnTransferencia.setMaximumSize(btnSize);
         btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
 
         btnConsulta.setPreferredSize(btnSize);
         btnConsulta.setMaximumSize(btnSize);
@@ -88,7 +96,7 @@ public class TelaCliente {
         btnSolicitacao.setPreferredSize(btnSize);
         btnSolicitacao.setMaximumSize(btnSize);
         btnSolicitacao.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnTransferencia);
         painelBotoes.add(Box.createVerticalStrut(10));
@@ -101,9 +109,9 @@ public class TelaCliente {
         painelBotoes.add(btnSolicitacao);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));
-        
+
         tela.add(painelBotoes, BorderLayout.WEST);
-        
+
         btnTransferencia.addActionListener(e -> mostrarPainel("transferencia"));
         btnConsulta.addActionListener(e -> mostrarPainel("consulta"));
         btnRendaFixa.addActionListener(e -> mostrarPainel("rendaFixa"));
@@ -126,7 +134,7 @@ public class TelaCliente {
         tela.add(painelPrincipal, BorderLayout.EAST);
         cardLayout.show(painelPrincipal, "vazio");
     }
-    
+
     private void mostrarPainel(String nomePainel) {
         cardLayout.show(painelPrincipal, nomePainel);
     }

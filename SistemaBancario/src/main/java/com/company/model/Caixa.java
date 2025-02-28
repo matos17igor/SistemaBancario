@@ -12,14 +12,6 @@ public class Caixa extends Usuario{
         super(nome, logradouro, nascimento, cpf, email, senha, telefone);
     }
     
-    @Override
-    public void exibirMenu() {
-        System.out.println("Menu Caixa:");
-        System.out.println("1. Processar Saque");
-        System.out.println("2. Processar Depósito");
-        System.out.println("3. Executar Transferência");
-    }
-    
     public void processarSaque(Cliente cliente, double valor, String senhaTransacao) throws SaldoException, PasswordException {
         Conta conta = cliente.getConta();
         if(!conta.getSenhaTransacao().equals(senhaTransacao)) {
