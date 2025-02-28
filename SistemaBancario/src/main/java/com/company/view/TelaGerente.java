@@ -1,5 +1,6 @@
 package com.company.view;
 
+import com.company.model.Gerente;
 import com.company.view.paineis.*;
 import java.awt.*;
 import javax.swing.*;
@@ -20,12 +21,23 @@ public class TelaGerente {
     private JButton btnCadastroRendaVariavel;
     private JButton btnAvaliacao;
     
+    private Gerente gerente;
+
+    public Gerente getGerente() {
+        return gerente;
+    }
+
+    public void setGerente(Gerente gerente) {
+        this.gerente = gerente;
+    }
     
-    public void desenha() {
+    public void desenha(Gerente g) {
         tela = new JFrame("Menu Gerente");
         tela.setSize(WIDTH, HEIGHT);
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setLayout(new BorderLayout());
+        
+        setGerente(g);
         
         desenhaPainelBotoes();
         desenhaPainelPrincipal();

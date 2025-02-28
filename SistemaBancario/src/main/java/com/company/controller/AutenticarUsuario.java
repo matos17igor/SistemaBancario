@@ -15,6 +15,6 @@ public class AutenticarUsuario implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        tela.autenticarUsuario();
+        tela.exibirMenu();
     }
 }
