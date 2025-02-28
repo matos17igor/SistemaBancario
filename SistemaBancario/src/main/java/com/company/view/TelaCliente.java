@@ -63,8 +63,8 @@ public class TelaCliente {
         
         btnConsulta = new JButton("Consulta de Saldo/Extrato");
         btnTransferencia = new JButton("Realizar transferência");        
-        btnRendaFixa = new JButton("Investimento em Renda Fixa");       
-        btnRendaVariavel = new JButton("Investimento em Renda Variável");
+        btnRendaFixa = new JButton("Investir em Renda Fixa");       
+        btnRendaVariavel = new JButton("Investir em Renda Variável");
         btnSolicitacao = new JButton("Solicitação de Crédito");
         
         Dimension btnSize = new Dimension(200, 50);
