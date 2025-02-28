@@ -8,6 +8,10 @@ public class SistemaBancario {
         TelaLogin tela = new TelaLogin();
         //tela.desenha();
         TelaCliente telaCliente = new TelaCliente();
-        telaCliente.desenha();
+        //telaCliente.desenha();
+        
+        TelaGerente telaGerente = new TelaGerente();
+        telaGerente.desenha();
+        
     }
 }

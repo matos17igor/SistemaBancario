@@ -9,10 +9,10 @@ import javax.swing.border.EmptyBorder;
 public class TelaCliente {
     
     private JFrame tela;
-    private JPanel painelBotoes;
-    private JPanel painelSuperior;
-    private JPanel painelPrincipal;
-    private CardLayout cardLayout;
+    private JPanel painelBotoes;    //div dos botoes
+    private JPanel painelSuperior;  //div das msgs
+    private JPanel painelPrincipal; //div dos conteudos dos botoes
+    private CardLayout cardLayout;  //usada para organizar componentes dentro de um contêiner de forma que apenas um componente seja visível de cada vez
     
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
@@ -37,7 +37,7 @@ public class TelaCliente {
         desenhaPainelBotoes();
         desenhaPainelPrincipal();
         
-        tela.setResizable(false);
+        tela.setResizable(false);   //usado para definir se uma janela (por exemplo, um JFrame) pode ser redimensionada pelo usuário ou não
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
     }
@@ -70,7 +70,7 @@ public class TelaCliente {
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
         btnTransferencia.setMaximumSize(btnSize); 
-        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT); // utilizado em Java para definir o alinhamento horizontal de um componente dentro de um contêiner
         
 
         btnConsulta.setPreferredSize(btnSize);
