@@ -27,6 +27,19 @@ public class PainelCadastroRendaVariavel extends JPanel{
         JTextField campoRisco = new JTextField("Risco");
         campoRisco.setEditable(false);
         
+        JButton btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnCadastrar.addActionListener(e -> {
+            // Exemplo de ação: verificando se os campos estão preenchidos e exibindo uma mensagem
+            if (!campoValor.getText().isEmpty() && !campoRisco.getText().isEmpty() && !campoPrazo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Renda Variavel cadastrada com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente.", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        
         Dimension campoSize = new Dimension(300, 30);
         campoOpcao.setPreferredSize(campoSize);
         campoOpcao.setMaximumSize(campoSize);
@@ -36,8 +49,10 @@ public class PainelCadastroRendaVariavel extends JPanel{
         campoPrazo.setMaximumSize(campoSize);
         campoRisco.setPreferredSize(campoSize);
         campoRisco.setMaximumSize(campoSize);
+        btnCadastrar.setPreferredSize(new Dimension(150, 30));
+        btnCadastrar.setMaximumSize(new Dimension(150, 30));
         
-        add(Box.createVerticalStrut(130));
+        add(Box.createVerticalStrut(35));
         add(labelOpcao);
         add(Box.createVerticalStrut(3));
         add(campoOpcao);
@@ -56,5 +71,8 @@ public class PainelCadastroRendaVariavel extends JPanel{
         add(labelRisco);
         add(Box.createVerticalStrut(3));
         add(campoRisco);
+        
+        add(Box.createVerticalStrut(15));
+        add(btnCadastrar);
     }
 }

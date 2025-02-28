@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 
 public class PainelAvaliacao extends JPanel {
+    
     public PainelAvaliacao(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
@@ -42,6 +43,10 @@ public class PainelAvaliacao extends JPanel {
         
         JButton btnAutorizar = new JButton("Autorizar");
         btnAutorizar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnAutorizar.addActionListener(e -> {
+            // Função que será executada quando o botão for clicado
+            JOptionPane.showMessageDialog(this, "Crédito Autorizado!");
+        });
         
         
         Dimension campoSize = new Dimension(300, 30);
@@ -55,7 +60,7 @@ public class PainelAvaliacao extends JPanel {
         btnAutorizar.setMaximumSize(new Dimension(150, 30));
         
         
-        add(Box.createVerticalStrut(95));
+        add(Box.createVerticalStrut(35));
         add(labelValor);
         add(Box.createVerticalStrut(3));
         add(campoValor);

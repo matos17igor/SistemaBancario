@@ -27,7 +27,21 @@ public class PainelCadastroRendaFixa extends JPanel {
         JTextField campoTaxa = new JTextField("Taxa");
         campoTaxa.setEditable(false);
         
-        Dimension campoSize = new Dimension(300, 30);
+        
+        JButton btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnCadastrar.addActionListener(e -> {
+            // Exemplo de ação: verificando se os campos estão preenchidos e exibindo uma mensagem
+            if (!campoValor.getText().isEmpty() && !campoTaxa.getText().isEmpty() && !campoPrazo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Renda Fixa cadastrada com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente.", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        
+        Dimension campoSize = new Dimension(285, 30);
         campoOpcao.setPreferredSize(campoSize);
         campoOpcao.setMaximumSize(campoSize);
         campoValor.setPreferredSize(campoSize);
@@ -36,8 +50,11 @@ public class PainelCadastroRendaFixa extends JPanel {
         campoPrazo.setMaximumSize(campoSize);
         campoTaxa.setPreferredSize(campoSize);
         campoTaxa.setMaximumSize(campoSize);
+        btnCadastrar.setPreferredSize(new Dimension(150, 30));
+        btnCadastrar.setMaximumSize(new Dimension(150, 30));
         
-        add(Box.createVerticalStrut(130));
+        
+        add(Box.createVerticalStrut(35));
         add(labelOpcao);
         add(Box.createVerticalStrut(3));
         add(campoOpcao);
@@ -56,5 +73,8 @@ public class PainelCadastroRendaFixa extends JPanel {
         add(labelTaxa);
         add(Box.createVerticalStrut(3));
         add(campoTaxa);
+        
+        add(Box.createVerticalStrut(15));
+        add(btnCadastrar);
     }
 }

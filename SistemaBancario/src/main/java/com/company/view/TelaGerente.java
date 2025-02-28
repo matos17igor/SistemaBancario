@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class TelaGerente {
     
     private JFrame tela;
+    private JPanel painelSuperior;
     private JPanel painelBotoes;    //div dos botoes
     private JPanel painelPrincipal; //div dos conteudos dos botoes
     
@@ -20,6 +21,7 @@ public class TelaGerente {
     private JButton btnCadastroRendaFixa;
     private JButton btnCadastroRendaVariavel;
     private JButton btnAvaliacao;
+    private JLabel mensagem;
     
     private Gerente gerente;
 
@@ -39,6 +41,7 @@ public class TelaGerente {
         
         setGerente(g);
         
+        desenhaPainelSuperior();
         desenhaPainelBotoes();
         desenhaPainelPrincipal();
         
@@ -47,6 +50,17 @@ public class TelaGerente {
         tela.setLocationRelativeTo(null);
     }
     
+    public void desenhaPainelSuperior(){
+        painelSuperior = new JPanel();
+        painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
+        
+        mensagem = new JLabel("Bem-vindo, USER!");
+        mensagem.setFont(new Font("Arial", Font.BOLD, 18));
+        
+        painelSuperior.add(mensagem);
+        
+        tela.add(painelSuperior, BorderLayout.NORTH);
+    }
     
     public void desenhaPainelBotoes(){
         painelBotoes = new JPanel();
@@ -77,7 +91,7 @@ public class TelaGerente {
         
         
         
-        painelBotoes.add(Box.createVerticalStrut(135));  //cria um espaço fixo vertical entre componentes em um layout
+        painelBotoes.add(Box.createVerticalStrut(50));  //cria um espaço fixo vertical entre componentes em um layout
         painelBotoes.add(btnApoio);
         
         painelBotoes.add(Box.createVerticalStrut(15));
