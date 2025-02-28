@@ -11,6 +11,9 @@ public class Gerente extends Usuario{
     protected List<InvestimentoRendaFixa> investimentosRendaFixa = new ArrayList<>();
     protected List<InvestimentoRendaVariavel> investimentosRendaVariavel = new ArrayList<>();
     
+    public Gerente()
+    {}
+    
     public Gerente(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, String telefone) throws NameException, CPFException {
         super(nome, logradouro, nascimento, cpf, email, senha, telefone);
     }

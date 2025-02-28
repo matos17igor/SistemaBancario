@@ -64,6 +64,11 @@ public class TelaLogin {
                 TelaCliente tc = new TelaCliente();
                 tc.desenha(cliente);
             }
+            if (user instanceof Gerente) {
+                Gerente gerente = (Gerente) user; // Cast seguro após verificação
+                TelaGerente tg = new TelaGerente();
+                tg.desenha(gerente);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
