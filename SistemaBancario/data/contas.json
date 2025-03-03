@@ -1,0 +1,22 @@
+[
+  {
+    "numero": "12345",
+    "saldo": 500.0,
+    "senhaTransacao": "senha123",
+    "titular": "Igor",
+    "transferencias": [],
+    "saques": [],
+    "depositos": [],
+    "investimentos": []
+  },
+  {
+    "numero": "12345",
+    "saldo": 500.0,
+    "senhaTransacao": "senha123",
+    "titular": "Joao",
+    "transferencias": [],
+    "saques": [],
+    "depositos": [],
+    "investimentos": []
+  }
+]

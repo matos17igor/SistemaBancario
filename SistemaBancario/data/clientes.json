@@ -1,1 +1,1 @@
-[{"id":0,"nome":"Igor","login":"igor","senha":"igor123"}]
+[{"conta":{"numero":"12345","saldo":500.0,"senhaTransacao":"senha123","titular":"Igor","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"id":0,"nome":"Igor","login":"igor","senha":"igor123"},{"conta":{"numero":"12345","saldo":500.0,"senhaTransacao":"senha123","titular":"Joao","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"id":0,"nome":"Joao","login":"joao","senha":"joao123"}]

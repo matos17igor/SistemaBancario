@@ -20,7 +20,7 @@ public class Conta {
         
     }
     
-    public Conta(String numero, double saldo, String senhaTransacao, String titular, String tipoUsuario) {
+    public Conta(String numero, double saldo, String senhaTransacao, String titular) {
         this.numero = numero;
         this.saldo = saldo;
         this.senhaTransacao = senhaTransacao;
