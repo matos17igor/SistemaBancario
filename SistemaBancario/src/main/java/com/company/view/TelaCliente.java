@@ -123,7 +123,7 @@ public class TelaCliente {
     private void desenhaPainelPrincipal() {
         cardLayout = new CardLayout();
         painelPrincipal = new JPanel(cardLayout);
-
+        
         painelPrincipal.add(new JPanel(), "vazio");
         painelPrincipal.add(new PainelTransferencia(), "transferencia");
         painelPrincipal.add(new PainelConsulta(), "consulta");
