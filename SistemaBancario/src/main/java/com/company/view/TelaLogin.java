@@ -9,7 +9,6 @@ import com.company.persistence.CaixaPersistence;
 import com.company.persistence.ClientePersistence;
 import com.company.persistence.GerentePersistence;
 import com.company.persistence.Persistence;
-import com.company.view.TelaCadastro;
 
 public class TelaLogin {
 
@@ -79,6 +78,11 @@ public class TelaLogin {
                 Gerente gerente = (Gerente) user; // Cast seguro após verificação
                 TelaGerente tg = new TelaGerente();
                 tg.desenha(gerente);
+            }
+            if (user instanceof Caixa) {
+                Caixa caixa = (Caixa) user; // Cast seguro após verificação
+                TelaCaixa tcx = new TelaCaixa();
+                tcx.desenha(caixa);
             }
             tela.setVisible(false);
 

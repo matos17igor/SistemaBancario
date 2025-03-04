@@ -31,12 +31,12 @@ public class TelaCaixa {
         this.caixa = caixa;
     }
 
-    public void desenha() {
+    public void desenha(Caixa caixa) {
         tela = new JFrame("Menu Caixa");
         tela.setSize(WIDTH, HEIGHT);
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setLayout(new BorderLayout());
-        
+        setCaixa(caixa);
 
         desenhaPainelSuperior();
         desenhaPainelBotoes();
