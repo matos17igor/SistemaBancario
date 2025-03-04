@@ -79,7 +79,7 @@ public class TelaCliente {
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
         btnTransferencia.setMaximumSize(btnSize); 
-        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT); // utilizado em Java para definir o alinhamento horizontal de um componente dentro de um contêiner
+        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
         
 
         btnConsulta.setPreferredSize(btnSize);

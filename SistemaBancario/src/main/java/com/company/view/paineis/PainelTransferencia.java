@@ -35,7 +35,7 @@ public class PainelTransferencia extends JPanel {
         JLabel labelValor = new JLabel("Valor:");
         labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoValor = new JTextField();
-        JLabel labelSenha = new JLabel("Senha:");
+        JLabel labelSenha = new JLabel("Senha de transferência:");
         labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoSenha = new JPasswordField();
         btnConfirmar = new JButton("Confirmar");
