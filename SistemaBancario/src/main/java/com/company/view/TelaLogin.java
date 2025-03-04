@@ -9,6 +9,7 @@ import com.company.persistence.CaixaPersistence;
 import com.company.persistence.ClientePersistence;
 import com.company.persistence.GerentePersistence;
 import com.company.persistence.Persistence;
+import com.company.view.TelaCadastro;
 
 public class TelaLogin {
 
@@ -18,8 +19,9 @@ public class TelaLogin {
 
         tela = new LoginFrame();
         tela.setVisible(true);
-        JButton btn = new JButton();
-        btn = tela.getButton();
+        JButton btn = tela.getButton();
+        JButton btnCadastro = tela.getButtonCadastro();
+        btnCadastro.addActionListener(e -> exibirCadastro());
         btn.addActionListener(new AutenticarUsuario(this));
     }
 
@@ -55,6 +57,15 @@ public class TelaLogin {
         return null;
     }
 
+    public void cadastrarCliente() {
+    }
+
+    public void exibirCadastro() {
+
+        TelaCadastro tc = new TelaCadastro();
+        tc.desenha();
+    }
+
     public void exibirMenu() {
 
         Usuario user = autenticarUsuario();
@@ -69,8 +80,11 @@ public class TelaLogin {
                 TelaGerente tg = new TelaGerente();
                 tg.desenha(gerente);
             }
+            tela.setVisible(false);
+
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 }

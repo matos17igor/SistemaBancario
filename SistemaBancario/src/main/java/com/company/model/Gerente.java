@@ -14,8 +14,8 @@ public class Gerente extends Usuario{
     public Gerente()
     {}
     
-    public Gerente(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, String telefone) throws NameException, CPFException {
-        super(nome, logradouro, nascimento, cpf, email, senha, telefone);
+    public Gerente(int id, String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, String telefone) throws NameException, CPFException {
+        super(id, nome, logradouro, nascimento, cpf, email, senha, telefone);
     }
     
     public void apoiarMovimentacao(Conta cliente, String operacao, String senhaConfirmacao) throws PasswordException{

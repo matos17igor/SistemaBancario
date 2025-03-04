@@ -40,7 +40,8 @@ public class ContaPersistence implements Persistence<Conta> {
             return new ArrayList<>();
         }
 
-        Type tipoLista = new TypeToken<List<Conta>>() {}.getType();
+        Type tipoLista = new TypeToken<List<Conta>>() {
+        }.getType();
         List<Conta> contas = gson.fromJson(json, tipoLista);
 
         if (contas == null) {
@@ -51,4 +52,41 @@ public class ContaPersistence implements Persistence<Conta> {
 
         return contas;
     }
+
+    public List<Conta> load() {
+        Gson gson = new Gson();
+        File arquivo = new File(PATH);
+
+        if (!arquivo.exists()) {
+            return new ArrayList<>(); // Retorna uma lista vazia se o arquivo não existir
+        }
+
+        String json = Arquivo.le(PATH); // Método para ler o conteúdo do arquivo
+        Type listType = new TypeToken<List<Conta>>() {
+        }.getType();
+
+        return gson.fromJson(json, listType);
+    }
+
+    @Override
+    public void add(Conta novoCliente) {
+        Gson gson = new Gson();
+        List<Conta> contasExistentes = load(); // Carrega os clientes já salvos
+
+        if (contasExistentes == null) {
+            contasExistentes = new ArrayList<>();
+        }
+
+        contasExistentes.add(novoCliente); // Adiciona o novo cliente
+
+        String json = gson.toJson(contasExistentes);
+
+        File diretorio = new File(DIRECTORY);
+        if (!diretorio.exists()) {
+            diretorio.mkdirs();
+        }
+
+        Arquivo.salva(PATH, json); // Salva a lista atualizada
+    }
+
 }

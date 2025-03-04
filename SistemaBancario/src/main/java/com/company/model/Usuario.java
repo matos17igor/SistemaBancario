@@ -7,7 +7,6 @@ import com.company.exception.CPFException;
 public class Usuario {
 
     private int id;
-    private static int idAtual = 0;
     private String nome;
     private String nascimento;
     private String cpf;
@@ -19,13 +18,13 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, 
+    public Usuario(int id, String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, 
     String telefone)
     throws NameException, CPFException
     {
-        this.id = ++idAtual;
+        this.id = id;
         setName(nome);
-        this.login = login;
+        this.login = email.getEmail();
         this.logradouro = logradouro;
         this.nascimento = nascimento;
         setCPF(cpf);

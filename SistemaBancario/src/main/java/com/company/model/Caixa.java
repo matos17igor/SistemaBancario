@@ -7,9 +7,9 @@ import com.company.exception.PasswordException;
 
 public class Caixa extends Usuario{
     
-    public Caixa(String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, 
+    public Caixa(int id, String nome, Endereco logradouro, String nascimento, String cpf, Email email, String senha, 
     String telefone) throws NameException, CPFException {
-        super(nome, logradouro, nascimento, cpf, email, senha, telefone);
+        super(id, nome, logradouro, nascimento, cpf, email, senha, telefone);
     }
     
     public void processarSaque(Cliente cliente, double valor, String senhaTransacao) throws SaldoException, PasswordException {
