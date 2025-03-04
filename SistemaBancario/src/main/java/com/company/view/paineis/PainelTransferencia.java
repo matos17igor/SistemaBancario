@@ -19,8 +19,14 @@ public class PainelTransferencia extends JPanel {
     private JTextField campoValor;
     private JPasswordField campoSenha;
     private JButton btnConfirmar;
+    private Cliente cliente;
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-    public PainelTransferencia() {
+    public PainelTransferencia(Cliente cliente) {
+        this.cliente = cliente;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel labelContaDestino = new JLabel("Conta de destino:");
@@ -66,33 +72,17 @@ public class PainelTransferencia extends JPanel {
             try {
                 String destino = campoContaDestino.getText();
                 double valor = Double.parseDouble(campoValor.getText());
-                String senha = String.valueOf(campoSenha.getPassword());
+                String senha = new String(campoSenha.getPassword());
+                System.out.println("Senha : " + senha);
 
                 if (destino.isEmpty() || valor <= 0 || senha.isEmpty()) {
                     throw new NumberFormatException();
                 }
-
-                // Busca cliente autenticado
-                Persistence<Cliente> clientePersistence = new ClientePersistence();
-                List<Cliente> clientes = clientePersistence.findAll();
-
-                Cliente clienteLogado = null;
-                for (Cliente c : clientes) {
-                    if (c.getSenha().equals(senha)) {
-                        clienteLogado = c;
-                        break;
-                    }
-                }
-
-                if (clienteLogado == null) {
-                    JOptionPane.showMessageDialog(null, "Senha incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
+                
                 // Busca conta de destino
                 Persistence<Conta> contaPersistence = new ContaPersistence();
                 List<Conta> contas = contaPersistence.findAll();
-
+                
                 Conta contaDestino = null;
                 for (Conta conta : contas) {
                     if (conta.getNumero().trim().equals(destino.trim())) {
@@ -105,10 +95,10 @@ public class PainelTransferencia extends JPanel {
                     JOptionPane.showMessageDialog(null, "Conta de destino não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
+                
                 // Realiza a transferencia
                 try {
-                    clienteLogado.realizaTransferencia(valor, contaDestino, senha);
+                    cliente.realizaTransferencia(valor, contaDestino, senha);
                     JOptionPane.showMessageDialog(null, "Investimento realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SaldoException | PasswordException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

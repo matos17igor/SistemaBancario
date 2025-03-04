@@ -125,7 +125,7 @@ public class TelaCliente {
         painelPrincipal = new JPanel(cardLayout);
         
         painelPrincipal.add(new JPanel(), "vazio");
-        painelPrincipal.add(new PainelTransferencia(), "transferencia");
+        painelPrincipal.add(new PainelTransferencia(getCliente()), "transferencia");
         painelPrincipal.add(new PainelConsulta(getCliente()), "consulta");
         painelPrincipal.add(new PainelRendaFixa(), "rendaFixa");
         painelPrincipal.add(new PainelRendaVariavel(), "rendaVariavel");
