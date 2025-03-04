@@ -56,7 +56,7 @@ public class TelaCliente {
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
 
         mensagem = new JLabel("Bem-vindo " + getCliente().getName());
-        saldo = new JLabel("Saldo: R$0,00");
+        saldo = new JLabel("Saldo: R$" + getCliente().getConta().getSaldo());
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
         saldo.setFont(new Font("Arial", Font.PLAIN, 16));
 
@@ -79,7 +79,7 @@ public class TelaCliente {
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
         btnTransferencia.setMaximumSize(btnSize); 
-        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT); // utilizado em Java para definir o alinhamento horizontal de um componente dentro de um contêiner
+        btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
         
 
         btnConsulta.setPreferredSize(btnSize);
@@ -125,8 +125,8 @@ public class TelaCliente {
         painelPrincipal = new JPanel(cardLayout);
         
         painelPrincipal.add(new JPanel(), "vazio");
-        painelPrincipal.add(new PainelTransferencia(), "transferencia");
-        painelPrincipal.add(new PainelConsulta(), "consulta");
+        painelPrincipal.add(new PainelTransferencia(getCliente()), "transferencia");
+        painelPrincipal.add(new PainelConsulta(getCliente()), "consulta");
         painelPrincipal.add(new PainelRendaFixa(), "rendaFixa");
         painelPrincipal.add(new PainelRendaVariavel(), "rendaVariavel");
         painelPrincipal.add(new PainelSolicitacao(), "solicitacao");

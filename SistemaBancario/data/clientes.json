@@ -1,15 +1,23 @@
 [{
         "conta": {
+<<<<<<< HEAD
             "numero": "1111",
             "saldo": 0.0,
             "senhaTransacao": "",
             "titular": "Joao Paulo",
+=======
+            "numero": "123",
+            "saldo": 1000.0,
+            "senhaTransacao": "senha123",
+            "titular": "Igor",
+>>>>>>> main
             "transferencias": [],
             "saques": [],
             "depositos": [],
             "investimentos": []
         },
         "id": 0,
+<<<<<<< HEAD
         "nome": "Joao Paulo",
         "nascimento": "16042005",
         "cpf": "11649146698",
@@ -33,12 +41,25 @@
             "saldo": 0.0,
             "senhaTransacao": "",
             "titular": "Pedro",
+=======
+        "nome": "Igor",
+        "login": "igor",
+        "senha": "igor123"
+    },
+    {
+        "conta": {
+            "numero": "12345",
+            "saldo": 500.0,
+            "senhaTransacao": "senha123",
+            "titular": "Joao",
+>>>>>>> main
             "transferencias": [],
             "saques": [],
             "depositos": [],
             "investimentos": []
         },
         "id": 0,
+<<<<<<< HEAD
         "nome": "Pedro",
         "nascimento": "aaaaaa",
         "cpf": "11649146698",
@@ -56,4 +77,9 @@
         },
         "login": "aaaaa@aaaaa.com",
         "senha": "123"
+=======
+        "nome": "Joao",
+        "login": "joao",
+        "senha": "joao123"
+>>>>>>> main
     }]

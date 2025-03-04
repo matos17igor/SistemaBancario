@@ -1,1 +1,26 @@
+<<<<<<< HEAD
 [{"numero":"1111","saldo":0.0,"senhaTransacao":"","titular":"Joao Paulo","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},{"numero":"1111","saldo":0.0,"senhaTransacao":"","titular":"Pedro","transferencias":[],"saques":[],"depositos":[],"investimentos":[]}]
+=======
+[
+  {
+    "numero": "123",
+    "saldo": 1000.0,
+    "senhaTransacao": "senha123",
+    "titular": "Igor",
+    "transferencias": [],
+    "saques": [],
+    "depositos": [],
+    "investimentos": []
+  },
+  {
+    "numero": "12345",
+    "saldo": 500.0,
+    "senhaTransacao": "senha123",
+    "titular": "Joao",
+    "transferencias": [],
+    "saques": [],
+    "depositos": [],
+    "investimentos": []
+  }
+]
+>>>>>>> main
