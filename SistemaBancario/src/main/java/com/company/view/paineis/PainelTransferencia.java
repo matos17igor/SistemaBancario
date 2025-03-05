@@ -4,9 +4,11 @@ import com.company.exception.PasswordException;
 import com.company.exception.SaldoException;
 import com.company.model.Cliente;
 import com.company.model.Conta;
+import com.company.model.Transferencia;
 import com.company.persistence.Persistence;
 import com.company.persistence.ClientePersistence;
 import com.company.persistence.ContaPersistence;
+import com.company.persistence.TransferenciaPersistence;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,7 @@ public class PainelTransferencia extends JPanel {
     private JPasswordField campoSenha;
     private JButton btnConfirmar;
     private Cliente cliente;
-    
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -78,13 +80,11 @@ public class PainelTransferencia extends JPanel {
                 if (destino.isEmpty() || valor <= 0 || senha.isEmpty()) {
                     throw new NumberFormatException();
                 }
-                
+
                 // Busca conta de destino
                 Persistence<Conta> contaPersistence = new ContaPersistence();
-                List<Conta> contas = contaPersistence.findAll();
-                
                 Conta contaDestino = null;
-                for (Conta conta : contas) {
+                for (Conta conta : contaPersistence.findAll()) {
                     if (conta.getNumero().trim().equals(destino.trim())) {
                         contaDestino = conta;
                         break;
@@ -95,15 +95,12 @@ public class PainelTransferencia extends JPanel {
                     JOptionPane.showMessageDialog(null, "Conta de destino não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                
-                // Realiza a transferencia
-                try {
-                    cliente.realizaTransferencia(valor, contaDestino, senha);
-                    JOptionPane.showMessageDialog(null, "Investimento realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                } catch (SaldoException | PasswordException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                }
 
+                // Realiza a transferencia
+                Transferencia transferencia = new Transferencia(cliente.getConta(), valor, contaDestino);
+                TransferenciaPersistence.adicionarSolicitacao(transferencia);
+                JOptionPane.showMessageDialog(null, "Solicitação enviada para aprovação do caixa.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor, insira um valor numérico válido.", "Erro", JOptionPane.ERROR_MESSAGE);
             } catch (IllegalArgumentException ex) {

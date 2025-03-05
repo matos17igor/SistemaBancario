@@ -1,6 +1,7 @@
 package com.company.view;
 
 import com.company.model.Caixa;
+import com.company.model.Cliente;
 import com.company.view.paineis.*;
 import java.awt.*;
 import javax.swing.*;

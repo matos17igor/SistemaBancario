@@ -72,7 +72,7 @@ public class TelaCadastro {
 
     public int getNextId() {
         ClientePersistence clienteP = new ClientePersistence();
-        List<Cliente> clientes = clienteP.load(); // Carrega os clientes salvos
+        List<Cliente> clientes = clienteP.findAll(); // Carrega os clientes salvos
 
         if (clientes.isEmpty()) {
             return 1; // Se não houver clientes, começa do 1

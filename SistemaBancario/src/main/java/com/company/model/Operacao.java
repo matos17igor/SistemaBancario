@@ -14,4 +14,11 @@ public class Operacao {
         this.data = new Date();
     }
     
+    public Conta getOrigem() {
+        return origem;
+    }
+    
+    public double getValor() {
+        return valor;
+    }
 }

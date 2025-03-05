@@ -3,6 +3,7 @@ package com.company.view.paineis;
 import com.company.exception.PasswordException;
 import com.company.exception.SaldoException;
 import com.company.model.Cliente;
+import com.company.model.Conta;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ public class PainelSaque extends JPanel {
     private Cliente cliente;
 
     public PainelSaque() {
+        //this.cliente = cliente;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel labelValor = new JLabel("Valor do saque:");
@@ -59,7 +61,13 @@ public class PainelSaque extends JPanel {
                 if (valor <= 0 || senha.isEmpty()) {
                     throw new NumberFormatException();
                 }
-
+                
+                Conta conta = cliente.getConta();
+                if(conta == null){
+                    JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
                 cliente.realizaTransferencia(valor, cliente.getConta(), senha);
                 JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SaldoException | PasswordException ex) {

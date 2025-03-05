@@ -11,4 +11,8 @@ public class Transferencia extends Operacao{
         super(origem, valor);
         this.destino = destino;
     }
+    
+    public Conta getDestino() {
+        return destino;
+    }
 }
