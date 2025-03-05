@@ -24,8 +24,8 @@ public class Gerente extends Usuario{
         }
         if(operacao.equalsIgnoreCase("transferencia") || operacao.equalsIgnoreCase("saque")){
             // verificar se o valor da operacao esta acima de 1 milhao
+            System.out.println("Apoio concedido para a operacao de " + operacao + "do cliente " + cliente.getTitular());
         } 
-        System.out.println("Apoio concedido para a operacao de " + operacao + "do cliente " + cliente.getTitular());
     }
     
     
@@ -40,6 +40,17 @@ public class Gerente extends Usuario{
         System.out.println("Investimento em Renda Variavel cadastrado: " + investimento.getNome());
     }
     
+    public void listarInvestimentos() {
+        System.out.println("Investimentos de Renda Fixa:");
+        for (InvestimentoRendaFixa inv : investimentosRendaFixa) {
+            System.out.println("- " + inv.getNome());
+        }
+
+        System.out.println("Investimentos de Renda Variável:");
+        for (InvestimentoRendaVariavel inv : investimentosRendaVariavel) {
+            System.out.println("- " + inv.getNome());
+        }
+    }
     
     public void avaliarCredito(Conta cliente, String senhaConfirmacao) throws PasswordException{
         // esta avaliando somente o saldo disponivel

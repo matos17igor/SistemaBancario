@@ -54,7 +54,7 @@ public class TelaGerente {
         painelSuperior = new JPanel();
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
         
-        mensagem = new JLabel("Bem-vindo, USER!");
+        mensagem = new JLabel("Bem-vindo, " + getGerente().getName());
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
         
         painelSuperior.add(mensagem);

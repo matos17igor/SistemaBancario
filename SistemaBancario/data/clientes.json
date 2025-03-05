@@ -1,1 +1,30 @@
-[{"conta":{"numero":"8c55a7c4-5b2c-49cd-ab62-4e6a8e98e22d","saldo":0.0,"senhaTransacao":"igor123","titular":"Igor","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"id":1,"nome":"Igor","nascimento":"03/02/2005","cpf":"10931059682","telefone":"32984005773","email":{"email":"igorochamatos@hotmail.com","login":"igorochamatos","dominio":"hotmail.com"},"logradouro":{"rua":"Rua x","bairro":"Centro","numero":"86","cep":"36600000"},"login":"igorochamatos@hotmail.com","senha":"igor123"}]
+[{
+        "conta": {
+            "numero": "8c55a7c4-5b2c-49cd-ab62-4e6a8e98e22d",
+            "saldo": 0.0,
+            "senhaTransacao": "igor123",
+            "titular": "Igor",
+            "transferencias": [],
+            "saques": [],
+            "depositos": [],
+            "investimentos": []
+        },
+        "id": 1,
+        "nome": "Igor",
+        "nascimento": "03/02/2005",
+        "cpf": "10931059682",
+        "telefone": "32984005773",
+        "email": {
+            "email": "igorochamatos@hotmail.com",
+            "login": "igorochamatos",
+            "dominio": "hotmail.com"
+        },
+        "logradouro": {
+            "rua": "Rua x",
+            "bairro": "Centro",
+            "numero": "86",
+            "cep": "36600000"
+        },
+        "login": "igorochamatos@hotmail.com",
+        "senha": "igor123"
+    }]

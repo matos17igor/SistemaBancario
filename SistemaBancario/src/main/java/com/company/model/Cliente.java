@@ -29,20 +29,16 @@ public class Cliente extends Usuario {
     }
     
     public void realizaTransferencia(double valor, Conta destino, String senha) throws SaldoException, PasswordException{
-        
-        //Se o saldo da conta de origem for menor que o valor da transferecnia,
-        //cancela a operação.
+
         if(this.conta.getSaldo() < valor)
             throw new SaldoException();
         if(!senha.equals(this.conta.getSenhaTransacao()))
             throw new PasswordException();
         
-        //Cria nova transferencia e a adiciona as contas de origem e destino
         Transferencia tr = new Transferencia(this.conta , valor, destino);
         this.conta.getTransferencias().add(tr);
         destino.getTransferencias().add(tr);
         
-        //Atualiza o saldo das contas pós transferencia
         double saldoOrigem = this.conta.getSaldo();
         double saldoDestino = destino.getSaldo();
         saldoOrigem -= valor;
@@ -54,10 +50,7 @@ public class Cliente extends Usuario {
     public void realizaInvestimento(){
         
     }
-    
-    //Para estes dois metodos, deve-se implementar a classe gerente primeiro,
-    //de forma que se tenha um metodo analiseCredito por parte do gerente
-    //antes de concluir o emprestimo/financiamento
+ 
     public void solicitaEmprestimo(double valor, int parcelas){
     }
     
