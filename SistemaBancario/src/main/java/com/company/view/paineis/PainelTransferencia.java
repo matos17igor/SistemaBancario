@@ -3,17 +3,15 @@ package com.company.view.paineis;
 import com.company.exception.PasswordException;
 import com.company.exception.SaldoException;
 import com.company.model.Cliente;
-import com.company.model.Conta;
 import com.company.model.Transferencia;
 import com.company.persistence.Persistence;
 import com.company.persistence.ClientePersistence;
-import com.company.persistence.ContaPersistence;
 import com.company.persistence.TransferenciaPersistence;
+import com.company.view.TelaCliente;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class PainelTransferencia extends JPanel {
 
@@ -22,13 +20,16 @@ public class PainelTransferencia extends JPanel {
     private JPasswordField campoSenha;
     private JButton btnConfirmar;
     private Cliente cliente;
+    private TelaCliente tela;
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public PainelTransferencia(Cliente cliente) {
+    public PainelTransferencia(Cliente cliente, TelaCliente tela) {
         this.cliente = cliente;
+        this.tela = tela;
+        
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel labelContaDestino = new JLabel("Conta de destino:");
@@ -81,25 +82,31 @@ public class PainelTransferencia extends JPanel {
                 }
 
                 // Busca conta de destino
-                Persistence<Conta> contaPersistence = new ContaPersistence();
-                Conta contaDestino = null;
-                for (Conta conta : contaPersistence.findAll()) {
-                    if (conta.getNumero().trim().equals(destino.trim())) {
-                        contaDestino = conta;
+                Persistence<Cliente> clientePersistence = new ClientePersistence();
+                Cliente clienteDestino = null;
+                for (Cliente cliente : clientePersistence.findAll()) {
+                    if (cliente.getConta().getNumero().trim().equals(destino.trim())) {
+                        clienteDestino = cliente;
                         break;
                     }
                 }
 
-                if (contaDestino == null) {
+                if (cliente == null) {
                     JOptionPane.showMessageDialog(null, "Conta de destino não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 // Realiza a transferencia
-                Transferencia transferencia = new Transferencia(cliente.getConta(), valor, contaDestino);
-                TransferenciaPersistence.adicionarSolicitacao(transferencia);
-                JOptionPane.showMessageDialog(null, "Solicitação enviada para aprovação do caixa.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                
+                try {
+                    cliente.realizaTransferencia(valor, clienteDestino.getConta(), senha);
+                    Transferencia transferencia = new Transferencia(cliente.getConta(), valor, clienteDestino.getConta());
+                    //TransferenciaPersistence.adicionarSolicitacao(transferencia);
+                    tela.setCliente(cliente);
+                    tela.desenhaPainelSuperior();
+                    JOptionPane.showMessageDialog(null, "Solicitação enviada para aprovação do caixa.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SaldoException | PasswordException error) {
+                    JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor, insira um valor numérico válido.", "Erro", JOptionPane.ERROR_MESSAGE);
             } catch (IllegalArgumentException ex) {

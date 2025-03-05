@@ -1,1 +1,1 @@
-[]
+[{"destino":{"numero":"12345","saldo":100.0,"senhaTransacao":"456","titular":"Joao","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"origem":{"numero":"12345","saldo":1000.0,"senhaTransacao":"123","titular":"Igor","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"valor":200.0,"data":"Mar 5, 2025, 3:27:29 PM"}]
