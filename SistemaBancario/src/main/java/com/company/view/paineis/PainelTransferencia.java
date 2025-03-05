@@ -75,7 +75,6 @@ public class PainelTransferencia extends JPanel {
                 String destino = campoContaDestino.getText();
                 double valor = Double.parseDouble(campoValor.getText());
                 String senha = new String(campoSenha.getPassword());
-                System.out.println("Senha : " + senha);
 
                 if (destino.isEmpty() || valor <= 0 || senha.isEmpty()) {
                     throw new NumberFormatException();
