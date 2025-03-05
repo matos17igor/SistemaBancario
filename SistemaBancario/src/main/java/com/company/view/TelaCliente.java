@@ -13,7 +13,7 @@ public class TelaCliente {
     private JPanel painelSuperior;  //div das msgs
     private JPanel painelPrincipal; //div dos conteudos dos botoes
     private CardLayout cardLayout;  //usada para organizar componentes dentro de um contêiner de forma que apenas um componente seja visível de cada vez
-    
+
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
 
@@ -52,11 +52,15 @@ public class TelaCliente {
     }
 
     public void desenhaPainelSuperior() {
+        if (painelSuperior != null) {
+            tela.remove(painelSuperior); // Remove o painel anterior
+        }
+
         painelSuperior = new JPanel();
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
 
         mensagem = new JLabel("Bem-vindo " + getCliente().getName());
-        saldo = new JLabel("Saldo: R$" + getCliente().getConta().getSaldo());
+        saldo = new JLabel("Saldo: R$" + String.format("%.2f", getCliente().getConta().getSaldo())); // Formata o saldo corretamente
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
         saldo.setFont(new Font("Arial", Font.PLAIN, 16));
 
@@ -64,6 +68,9 @@ public class TelaCliente {
         painelSuperior.add(saldo);
 
         tela.add(painelSuperior, BorderLayout.NORTH);
+
+        tela.revalidate(); // Recalcula os componentes da tela
+        tela.repaint();    // Redesenha a interface
     }
 
     public void desenhaPainelBotoes() {
@@ -78,9 +85,8 @@ public class TelaCliente {
 
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
-        btnTransferencia.setMaximumSize(btnSize); 
+        btnTransferencia.setMaximumSize(btnSize);
         btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
 
         btnConsulta.setPreferredSize(btnSize);
         btnConsulta.setMaximumSize(btnSize);
@@ -123,9 +129,9 @@ public class TelaCliente {
     private void desenhaPainelPrincipal() {
         cardLayout = new CardLayout();
         painelPrincipal = new JPanel(cardLayout);
-        
+
         painelPrincipal.add(new JPanel(), "vazio");
-        painelPrincipal.add(new PainelTransferencia(getCliente()), "transferencia");
+        painelPrincipal.add(new PainelTransferencia(getCliente(), this), "transferencia");
         painelPrincipal.add(new PainelConsulta(getCliente()), "consulta");
         painelPrincipal.add(new PainelRendaFixa(), "rendaFixa");
         painelPrincipal.add(new PainelRendaVariavel(), "rendaVariavel");

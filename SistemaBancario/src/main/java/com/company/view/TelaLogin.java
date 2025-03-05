@@ -29,6 +29,12 @@ public class TelaLogin {
         String login = tela.getjTextField1().getText();
         String senha = new String(tela.getjPasswordField1().getPassword());
 
+        if (login.equals("admin") && senha.equals("admin")) {
+            TelaAdmin telaadm = new TelaAdmin();
+            telaadm.desenha();
+            return null;
+        }
+
         Persistence<Cliente> clientePersistence = new ClientePersistence();
         List<Cliente> clientes = clientePersistence.findAll();
 
@@ -53,6 +59,7 @@ public class TelaLogin {
                 return cx;
             }
         }
+        JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
         return null;
     }
 
@@ -85,9 +92,6 @@ public class TelaLogin {
                 tcx.desenha(caixa);
             }
             tela.setVisible(false);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
