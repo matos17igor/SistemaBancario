@@ -2,12 +2,11 @@ package com.company.view.paineis;
 
 import com.company.exception.SaldoException;
 import com.company.model.Cliente;
+import com.company.model.Movimentacao;
 import com.company.model.Saque;
-import com.company.model.Transferencia;
 import com.company.persistence.ClientePersistence;
 import com.company.persistence.Persistence;
 import com.company.persistence.SaquePersistence;
-import com.company.persistence.TransferenciaPersistence;
 
 import javax.swing.*;
 import java.awt.*;
@@ -102,6 +101,10 @@ public class PainelSaqueCaixa extends JPanel {
             // Aprovação da transferência pelo caixa
             clienteOrigem.getConta().setSaldo(clienteOrigem.getConta().getSaldo() - saque.getValor());
 
+            // Adiciona a movimentacao
+            Movimentacao movimentacao = new Movimentacao(saque.getValor(), "Saque", clienteOrigem.getConta().getTitular());
+            clienteOrigem.getConta().setMovimentacoes(movimentacao);
+            
             JOptionPane.showMessageDialog(null, "Saque aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             SaquePersistence.removerSolicitacao(saque);
             clientePersistence.save(clientes);
