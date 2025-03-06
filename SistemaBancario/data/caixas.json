@@ -1,1 +1,1 @@
-[{"id":1,"nome":"Caixa","nascimento":"16042005","cpf":"11649146698","telefone":"3299998888","email":{"email":"caixa@email.com","login":"caixa","dominio":"email.com"},"logradouro":{"rua":"rua x","bairro":"bairro y","numero":"222","cep":"22222222"},"login":"caixa@email.com","senha":"123"}]
+[{"id":1,"nome":"Caixa","nascimento":"16042005","cpf":"11649146698","telefone":"3299998888","email":{"email":"caixa@email.com","login":"caixa","dominio":"email.com"},"logradouro":{"rua":"rua x","bairro":"bairro y","numero":"222","cep":"22222222"},"login":"caixa","senha":"123"}]

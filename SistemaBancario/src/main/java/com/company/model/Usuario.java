@@ -24,7 +24,7 @@ public class Usuario {
     {
         this.id = id;
         setName(nome);
-        this.login = email.getEmail();
+        this.login = email.getLogin();
         this.logradouro = logradouro;
         this.nascimento = nascimento;
         setCPF(cpf);
