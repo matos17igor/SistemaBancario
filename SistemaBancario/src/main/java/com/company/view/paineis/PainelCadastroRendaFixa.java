@@ -1,35 +1,42 @@
 package com.company.view.paineis;
 
+import com.company.model.InvestimentoRendaFixa;
+import com.company.persistence.InvestimentoRendaFixaPersistence;
+import com.company.exception.PasswordException;
+import com.company.exception.SaldoException;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class PainelCadastroRendaFixa extends JPanel {
+    
+    
     public PainelCadastroRendaFixa(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         JLabel labelOpcao = new JLabel("Opção escolhida:");
         labelOpcao.setAlignmentX(Component.CENTER_ALIGNMENT);
         JTextField campoOpcao = new JTextField("CDB");
-        campoOpcao.setEditable(false);
         
-        JLabel labelValor = new JLabel("Valor a Investir:");
+        JLabel labelValor = new JLabel("Valor Mínimo a Investir:");
         labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
         JTextField campoValor = new JTextField("Valor Investido");
-        campoValor.setEditable(false);
+        //campoValor.setEditable(false);
         
         JLabel labelPrazo = new JLabel("Prazo(meses):");
         labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
         JTextField campoPrazo = new JTextField("Prazo");
-        campoPrazo.setEditable(false);
         
         JLabel labelTaxa = new JLabel("Taxa de Rentabilidade(%):");
         labelTaxa.setAlignmentX(Component.CENTER_ALIGNMENT);
         JTextField campoTaxa = new JTextField("Taxa");
-        campoTaxa.setEditable(false);
-        
         
         JButton btnCadastrar = new JButton("Cadastrar");
         btnCadastrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
 
         btnCadastrar.addActionListener(e -> {
             // Exemplo de ação: verificando se os campos estão preenchidos e exibindo uma mensagem
@@ -41,7 +48,7 @@ public class PainelCadastroRendaFixa extends JPanel {
         });
         
         
-        Dimension campoSize = new Dimension(285, 30);
+        Dimension campoSize = new Dimension(300, 30);
         campoOpcao.setPreferredSize(campoSize);
         campoOpcao.setMaximumSize(campoSize);
         campoValor.setPreferredSize(campoSize);

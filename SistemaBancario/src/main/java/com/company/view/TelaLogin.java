@@ -83,7 +83,7 @@ public class TelaLogin {
             }
             if (user instanceof Gerente) {
                 Gerente gerente = (Gerente) user; // Cast seguro após verificação
-                TelaGerenteNew tg = new TelaGerenteNew();
+                TelaGerente tg = new TelaGerente();
                 tg.desenha(gerente);
             }
             if (user instanceof Caixa) {
