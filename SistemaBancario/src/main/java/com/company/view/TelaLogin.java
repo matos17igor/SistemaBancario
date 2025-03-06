@@ -91,7 +91,6 @@ public class TelaLogin {
                 TelaCaixa tcx = new TelaCaixa();
                 tcx.desenha(caixa);
             }
-            tela.setVisible(false);
         }
     }
 

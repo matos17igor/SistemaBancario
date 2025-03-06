@@ -23,6 +23,7 @@ public class TelaCliente {
     private JButton btnRendaVariavel;
     private JButton btnSolicitacao;
     private JButton btnSaque;
+    private JButton btnLogout;
     private JLabel mensagem;
     private JLabel saldo;
     private Cliente cliente;
@@ -60,7 +61,7 @@ public class TelaCliente {
         painelSuperior = new JPanel();
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
 
-        mensagem = new JLabel("Bem-vindo " + getCliente().getName());
+        mensagem = new JLabel("Bem-vindo, " + getCliente().getName());
         saldo = new JLabel("Saldo: R$" + String.format("%.2f", getCliente().getConta().getSaldo())); // Formata o saldo corretamente
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
         saldo.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -84,6 +85,7 @@ public class TelaCliente {
         btnRendaVariavel = new JButton("Investimento em Renda Variável");
         btnSolicitacao = new JButton("Solicitação de Crédito");
         btnSaque = new JButton("Solicitação de Saque");
+        btnLogout = new JButton("Sair");
 
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
@@ -110,6 +112,10 @@ public class TelaCliente {
         btnSaque.setMaximumSize(btnSize);
         btnSaque.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        btnLogout.setPreferredSize(btnSize);
+        btnLogout.setMaximumSize(btnSize);
+        btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnTransferencia);
         painelBotoes.add(Box.createVerticalStrut(10));
@@ -122,6 +128,8 @@ public class TelaCliente {
         painelBotoes.add(btnSolicitacao);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnSaque);
+        painelBotoes.add(btnLogout);
+        painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));
 
         tela.add(painelBotoes, BorderLayout.WEST);
@@ -132,6 +140,7 @@ public class TelaCliente {
         btnRendaVariavel.addActionListener(e -> mostrarPainel("rendaVariavel"));
         btnSolicitacao.addActionListener(e -> mostrarPainel("solicitacao"));
         btnSaque.addActionListener(e -> mostrarPainel("saque"));
+        btnLogout.addActionListener(e -> tela.setVisible(false));
     }
 
     public void desenhaPainelPrincipal() {
@@ -152,7 +161,7 @@ public class TelaCliente {
 
         tela.add(painelPrincipal, BorderLayout.EAST);
         cardLayout.show(painelPrincipal, "vazio");
-        
+
         tela.revalidate(); // Recalcula os componentes da tela
         tela.repaint();    // Redesenha a interface
     }
