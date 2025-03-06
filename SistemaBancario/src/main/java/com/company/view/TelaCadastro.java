@@ -5,6 +5,10 @@ import com.company.exception.*;
 import com.company.model.*;
 import com.company.persistence.ClientePersistence;
 import com.company.view.frames.CadastroClienteFrame;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -40,6 +44,54 @@ public class TelaCadastro {
         if (name.isEmpty() || email.isEmpty() || cpf.isEmpty() || nasc.isEmpty() || phone.isEmpty()
                 || rua.isEmpty() || bairro.isEmpty() || num.isEmpty() || cep.isEmpty() || senha.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validação da Data de Nascimento (Formato e maioridade)
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            Date dataNascimento = sdf.parse(nasc);
+
+            // Verifica se o usuário tem pelo menos 18 anos
+            Calendar hoje = Calendar.getInstance();
+            Calendar nascimento = Calendar.getInstance();
+            nascimento.setTime(dataNascimento);
+            int idade = hoje.get(Calendar.YEAR) - nascimento.get(Calendar.YEAR);
+            if (hoje.get(Calendar.DAY_OF_YEAR) < nascimento.get(Calendar.DAY_OF_YEAR)) {
+                idade--;
+            }
+
+            if (idade < 18) {
+                JOptionPane.showMessageDialog(null, "Você deve ter pelo menos 18 anos para se cadastrar.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Data de nascimento inválida! Use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validação do telefone (somente números e 10 ou 11 dígitos)
+        if (!phone.matches("\\d{10,11}")) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido! Use o formato (XX) XXXXX-XXXX.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validação do número da residência (deve ser numérico)
+        if (!num.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Número da residência inválido! Apenas números são permitidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validação do CEP (8 dígitos numéricos)
+        if (!cep.matches("\\d{8}")) {
+            JOptionPane.showMessageDialog(null, "CEP inválido! Deve conter 8 dígitos numéricos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validação da senha (mínimo 6 caracteres, incluindo letras e números)
+        if (senha.length() < 8) {
+            JOptionPane.showMessageDialog(null, "Senha inválida! Deve conter pelo menos 8 caracteres.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
