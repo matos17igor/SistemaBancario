@@ -8,7 +8,7 @@ import com.company.view.frames.CadastroClienteFrame;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import java.util.UUID;
+import java.util.Random;
 
 public class TelaCadastro {
 
@@ -46,7 +46,9 @@ public class TelaCadastro {
         try {
             Email em = new Email(email);
             Endereco e = new Endereco(rua, bairro, num, cep);
-            String numConta = UUID.randomUUID().toString(); //Cria numero aleatorio da conta
+            Random random = new Random();
+            int numero = 100000 + random.nextInt(900000); //Cria numero aleatorio da conta
+            String numConta = String.valueOf(numero);
             Conta conta = new Conta(numConta, 0, senha, name);
             Cliente c = new Cliente(getNextId(), name, e, nasc, cpf, em, senha, phone, conta);
 
