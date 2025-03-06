@@ -12,8 +12,7 @@ public class Conta {
     private List<Saque> saques;
     private List<Deposito> depositos;
     private List<Investimento> investimentos;
-    private List<Emprestimo> emprestimos;
-    private List<Credito> financiamentos;
+    private List<Credito> creditos;
 
     public Conta() {
         
@@ -28,6 +27,7 @@ public class Conta {
         saques = new ArrayList<>();
         depositos = new ArrayList<>();
         investimentos = new ArrayList<>();
+        creditos = new ArrayList<>();
     }
 
     public String getNumero() {
@@ -74,14 +74,6 @@ public class Conta {
         this.investimentos = investimentos;
     }
 
-    public void setEmprestimos(List<Emprestimo> emprestimos) {
-        this.emprestimos = emprestimos;
-    }
-
-    public void setFinanciamentos(List<Credito> financiamentos) {
-        this.financiamentos = financiamentos;
-    }
-
     public String getTitular() {
         return titular;
     }
@@ -102,12 +94,12 @@ public class Conta {
         return investimentos;
     }
 
-    public List<Emprestimo> getEmprestimos() {
-        return emprestimos;
+    public List<Credito> getCreditos() {
+        return creditos;
     }
 
-    public List<Credito> getFinanciamentos() {
-        return financiamentos;
+    public void setCreditos(List<Credito> creditos) {
+        this.creditos = creditos;
     }
-    
+   
 }

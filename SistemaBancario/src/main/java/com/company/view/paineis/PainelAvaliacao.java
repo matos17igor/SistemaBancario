@@ -1,8 +1,8 @@
 package com.company.view.paineis;
 
+import com.company.model.Cliente;
 import com.company.model.Credito;
-import com.company.model.Credito;
-import com.company.persistence.CreditoPersistence;
+import com.company.persistence.ClientePersistence;
 import com.company.persistence.CreditoPersistence;
 import javax.swing.*;
 import java.awt.*;
@@ -14,20 +14,24 @@ public class PainelAvaliacao extends JPanel {
 
     private JComboBox<Credito> comboSolicitacoes;
     private JButton btnConfirmar;
+    private JButton btnNegar;
     private static JTextField campoTipo;
     private static JTextField campoValorCredito;
     private static JTextField campoEntrada;
     private static JTextField campoPrazo;
+    private static JTextField campoJuros;
 
     public PainelAvaliacao() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         comboSolicitacoes = new JComboBox<Credito>();
         btnConfirmar = new JButton("Aprovar Crédito");
+        btnNegar = new JButton("Negar Crédito");
         campoPrazo = new JTextField();
         campoEntrada = new JTextField();
         campoTipo = new JTextField();
         campoValorCredito = new JTextField();
+        campoJuros = new JTextField();
 
         JLabel labelSolicitacoes = new JLabel("Solicitações Pendentes:");
         labelSolicitacoes.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -39,7 +43,9 @@ public class PainelAvaliacao extends JPanel {
         labelEntrada.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel labelPrazo = new JLabel("Parcelas:");
         labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        JLabel labelJuros = new JLabel("Definir juros:");
+        labelJuros.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
         carregarSolicitacoes();
         comboSolicitacoes.addActionListener(new ActionListener() {
             @Override
@@ -60,6 +66,8 @@ public class PainelAvaliacao extends JPanel {
         campoEntrada.setMaximumSize(campoSize);
         campoPrazo.setPreferredSize(campoSize);
         campoPrazo.setMaximumSize(campoSize);
+        campoJuros.setPreferredSize(campoSize);
+        campoJuros.setMaximumSize(campoSize);
 
         campoTipo.setEditable(false);
         campoValorCredito.setEditable(false);
@@ -74,8 +82,23 @@ public class PainelAvaliacao extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         btnConfirmar.addActionListener(new AprovarCreditoListener());
+        btnNegar.addActionListener(e -> {
+            int index = comboSolicitacoes.getSelectedIndex();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione uma solicitação", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            JOptionPane.showMessageDialog(null, "Crédito negado!", "Mensagem", JOptionPane.ERROR_MESSAGE);
+            CreditoPersistence cp = new CreditoPersistence();
+            Credito credito = cp.getSolicitacoes().get(index);
+            cp.removerSolicitacao(credito);
+            carregarSolicitacoes();
+        });
         btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnConfirmar.setPreferredSize(new Dimension(150, 30));
+        btnNegar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnNegar.setPreferredSize(new Dimension(150, 30));
 
         add(labelSolicitacoes);
         add(Box.createVerticalStrut(10));
@@ -92,8 +115,13 @@ public class PainelAvaliacao extends JPanel {
         add(labelPrazo);
         add(campoPrazo);
         add(Box.createVerticalStrut(10));
+        add(labelJuros);
+        add(campoJuros);
+        add(Box.createVerticalStrut(10));
         add(Box.createVerticalStrut(20));
         add(btnConfirmar);
+        add(Box.createVerticalStrut(10));
+        add(btnNegar);
     }
 
     private static void onComboBoxChange(Credito novoCredito) {
@@ -108,6 +136,7 @@ public class PainelAvaliacao extends JPanel {
             campoValorCredito.setText("");
             campoEntrada.setText("");
             campoPrazo.setText("");
+            campoJuros.setText("");
         }
     }
 
@@ -127,7 +156,7 @@ public class PainelAvaliacao extends JPanel {
         public void actionPerformed(ActionEvent e) {
             int index = comboSolicitacoes.getSelectedIndex();
             if (index == -1) {
-                JOptionPane.showMessageDialog(null, "Selecione uma solicitação para aprovar.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Selecione uma solicitação", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -141,6 +170,23 @@ public class PainelAvaliacao extends JPanel {
                 JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            ClientePersistence clp = new ClientePersistence();
+            List<Cliente> clientes = clp.findAll();
+            Cliente cliente = null;
+            for (Cliente c : clientes) {
+                if (c.getId() == (credito.getCliente().getId())) {
+                    cliente = c;
+                }
+            }
+
+            if (campoTipo.getText().equals("Empréstimo")) {
+                cliente.getConta().setSaldo(cliente.getConta().getSaldo() + Double.parseDouble(campoValorCredito.getText()));
+            }
+            if (campoTipo.getText().equals("Financiamento")) {
+                cliente.getConta().setSaldo(cliente.getConta().getSaldo() - Double.parseDouble(campoEntrada.getText()));
+            }
+            clp.save(clientes);
 
             // Aprovação da transferência pelo caixa
             JOptionPane.showMessageDialog(null, "Crédito aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);

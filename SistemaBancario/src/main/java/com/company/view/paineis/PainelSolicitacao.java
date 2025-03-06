@@ -79,7 +79,7 @@ public class PainelSolicitacao extends JPanel {
                 double entrada = Double.parseDouble(campoEntrada.getText());
                 int parcelas = Integer.parseInt(campoPrazo.getText());
 
-                if (valor <= 0 || entrada <= 0 || parcelas <= 0 || tipo.isEmpty()) {
+                if (valor <= 0 || entrada < 0 || parcelas <= 0 || tipo.isEmpty()) {
                     throw new NumberFormatException();
                 }
 
