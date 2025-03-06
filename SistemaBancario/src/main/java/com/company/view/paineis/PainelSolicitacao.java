@@ -15,7 +15,7 @@ public class PainelSolicitacao extends JPanel {
 
     private JComboBox<String> comboTipo;
     private JTextField campoValorCredito;
-    private JTextField campoEntrada;
+    private static JTextField campoEntrada;
     private JTextField campoPrazo;
     private JButton btnConfirmar;
     private Cliente cliente;
@@ -24,8 +24,8 @@ public class PainelSolicitacao extends JPanel {
         this.cliente = cliente;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         comboTipo = new JComboBox<>();
-        comboTipo.addItem("Empréstimo");
         comboTipo.addItem("Financiamento");
+        comboTipo.addItem("Empréstimo");
         JLabel labelValorCredito = new JLabel("Valor do Crédito:");
         labelValorCredito.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoValorCredito = new JTextField();
@@ -41,7 +41,12 @@ public class PainelSolicitacao extends JPanel {
         Dimension comboSize = new Dimension(300, 30);
         comboTipo.setMaximumSize(comboSize);
         comboTipo.setPreferredSize(comboSize);
-
+        comboTipo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onComboBoxChange(String.valueOf(comboTipo.getSelectedItem()));
+            }
+        });
         Dimension campoSize = new Dimension(300, 30);
         campoValorCredito.setPreferredSize(campoSize);
         campoValorCredito.setMaximumSize(campoSize);
@@ -67,6 +72,15 @@ public class PainelSolicitacao extends JPanel {
         add(Box.createVerticalStrut(10));
         add(Box.createVerticalStrut(20));
         add(btnConfirmar);
+    }
+
+    private static void onComboBoxChange(String tipo) {
+        if (tipo.equals("Empréstimo")) {
+            campoEntrada.setEditable(false);
+        }
+        if (tipo.equals("Financiamento")) {
+            campoEntrada.setEditable(true);
+        }
     }
 
     private class InvestirListener implements ActionListener {

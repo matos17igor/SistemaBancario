@@ -1,5 +1,6 @@
 package com.company.view.paineis;
 
+import com.company.exception.SaldoException;
 import com.company.model.Cliente;
 import com.company.model.Saque;
 import com.company.model.Transferencia;
@@ -15,9 +16,10 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PainelSaqueCaixa extends JPanel {
+
     private JComboBox<String> comboSolicitacoes;
     private JButton btnConfirmar;
-    
+
     public PainelSaqueCaixa() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -27,18 +29,18 @@ public class PainelSaqueCaixa extends JPanel {
         labelSolicitacoes.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         carregarSolicitacoes();
-        
+
         Dimension comboSize = new Dimension(300, 30);
         comboSolicitacoes.setMaximumSize(comboSize);
         comboSolicitacoes.setPreferredSize(comboSize);
-        
+
         JScrollPane scrollPane = new JScrollPane(comboSolicitacoes);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setMaximumSize(comboSize);
         scrollPane.setPreferredSize(comboSize);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
+
         btnConfirmar.addActionListener(new AprovarSaqueListener());
         btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnConfirmar.setPreferredSize(new Dimension(150, 30));
@@ -54,12 +56,13 @@ public class PainelSaqueCaixa extends JPanel {
         comboSolicitacoes.removeAllItems();
         List<Saque> solicitacoes = SaquePersistence.getSolicitacoes();
         for (Saque s : solicitacoes) {
-            comboSolicitacoes.addItem("Origem: " + s.getOrigem().getNumero() +  
-                                      " | Valor: R$" + s.getValor());
+            comboSolicitacoes.addItem("Origem: " + s.getOrigem().getNumero()
+                    + " | Valor: R$" + s.getValor());
         }
     }
 
     private class AprovarSaqueListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = comboSolicitacoes.getSelectedIndex();
@@ -69,35 +72,41 @@ public class PainelSaqueCaixa extends JPanel {
             }
 
             Saque saque = SaquePersistence.getSolicitacoes().get(index);
-            
+
             // Solicita a senha do cliente
             String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
 
+            // Buscar conta de destino no sistema
+            Persistence<Cliente> clientePersistence = new ClientePersistence();
+            List<Cliente> clientes = clientePersistence.findAll();
+
+            Cliente clienteOrigem = null;
+
+            for (Cliente c : clientes) {
+                if (c.getConta().getNumero().equals(saque.getOrigem().getNumero())) {
+                    clienteOrigem = c;  // Encontramos o cliente de origem dentro da lista
+                }
+            }
+
+            if (clienteOrigem.getConta().getSaldo() < saque.getValor()) {
+                JOptionPane.showMessageDialog(null, "Saldo insufieciente!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             if (senhaDigitada.isEmpty() || !senhaDigitada.equals(saque.getOrigem().getSenhaTransacao())) {
                 JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                SaquePersistence.removerSolicitacao(saque);
+                clientePersistence.save(clientes);
                 return;
             }
 
-            // Buscar conta de destino no sistema
-                Persistence<Cliente> clientePersistence = new ClientePersistence();
-                List<Cliente> clientes = clientePersistence.findAll();
-
-                Cliente clienteOrigem = null;
-
-                for (Cliente c : clientes) {
-                    if (c.getConta().getNumero().equals(saque.getOrigem().getNumero())) {
-                        clienteOrigem = c;  // Encontramos o cliente de origem dentro da lista
-                    }
-                }
-            
             // Aprovação da transferência pelo caixa
-                clienteOrigem.getConta().setSaldo(clienteOrigem.getConta().getSaldo() - saque.getValor());
-                
-                JOptionPane.showMessageDialog(null, "Saque aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                SaquePersistence.removerSolicitacao(saque);
-                clientePersistence.save(clientes);
+            clienteOrigem.getConta().setSaldo(clienteOrigem.getConta().getSaldo() - saque.getValor());
 
-                carregarSolicitacoes();
+            JOptionPane.showMessageDialog(null, "Saque aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            SaquePersistence.removerSolicitacao(saque);
+            clientePersistence.save(clientes);
+
+            carregarSolicitacoes();
         }
     }
 }
