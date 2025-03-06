@@ -126,7 +126,10 @@ public class TelaCliente {
         btnSolicitacao.addActionListener(e -> mostrarPainel("solicitacao"));
     }
 
-    private void desenhaPainelPrincipal() {
+    public void desenhaPainelPrincipal() {
+        if (painelPrincipal != null) {
+            tela.remove(painelPrincipal); // Remove o painel anterior
+        }
         cardLayout = new CardLayout();
         painelPrincipal = new JPanel(cardLayout);
 
@@ -140,6 +143,9 @@ public class TelaCliente {
 
         tela.add(painelPrincipal, BorderLayout.EAST);
         cardLayout.show(painelPrincipal, "vazio");
+        
+        tela.revalidate(); // Recalcula os componentes da tela
+        tela.repaint();    // Redesenha a interface
     }
 
     private void mostrarPainel(String nomePainel) {

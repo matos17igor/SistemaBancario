@@ -17,11 +17,9 @@ public class PainelSolicitacao extends JPanel {
         JLabel labelValorCredito = new JLabel("Valor do Crédito:");
         labelValorCredito.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoValorCredito = new JTextField();
-        
         JLabel labelPrazo = new JLabel("Prazo:");
         labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoPrazo = new JTextField();
-        
         btnConfirmar = new JButton("Solicitar crédito");
 
         Dimension campoSize = new Dimension(300, 30); 

@@ -65,11 +65,11 @@ public class PainelTransferenciaCaixa extends JPanel {
             }
 
             Transferencia transferencia = TransferenciaPersistence.getSolicitacoes().get(index);
-
+            
             // Solicita a senha do cliente
             String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
 
-            if (senhaDigitada == null || senhaDigitada.isEmpty()) {
+            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(transferencia.getOrigem().getSenhaTransacao())) {
                 JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
