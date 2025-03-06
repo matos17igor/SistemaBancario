@@ -8,37 +8,33 @@ public class Conta {
     private double saldo;
     private String senhaTransacao;
     private String titular;
-    private List<Transferencia> transferencias;
-    private List<Saque> saques;
-    private List<Deposito> depositos;
-    private List<Investimento> investimentos;
-    private List<Emprestimo> emprestimos;
-    private List<Credito> financiamentos;
+    private List<Movimentacao> movimentacoes;
 
     public Conta() {
-        
+
     }
-    
+
     public Conta(String numero, double saldo, String senhaTransacao, String titular) {
         this.numero = numero;
         this.saldo = saldo;
         this.senhaTransacao = senhaTransacao;
         this.titular = titular;
-        transferencias = new ArrayList<>();
-        saques = new ArrayList<>();
-        depositos = new ArrayList<>();
-        investimentos = new ArrayList<>();
+        this.movimentacoes = new ArrayList<>();
     }
 
     public String getNumero() {
         return numero;
     }
 
+    public String getTitular() {
+        return titular;
+    }
+
     public double getSaldo() {
         return saldo;
     }
-    
-    public void setSaldo(double saldo){
+
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
@@ -58,56 +54,11 @@ public class Conta {
         this.titular = titular;
     }
 
-    public void setTransferencias(Transferencia transferencias) {
-        this.transferencias.add(transferencias);
+    public List<Movimentacao> getMovimentacoes() {
+        return movimentacoes;
     }
 
-    public void setSaques(Saque saques) {
-        this.saques.add(saques);
+    public void setMovimentacoes(Movimentacao movimentacao) {
+        movimentacoes.add(movimentacao);
     }
-
-    public void setDepositos(List<Deposito> depositos) {
-        this.depositos = depositos;
-    }
-
-    public void setInvestimentos(List<Investimento> investimentos) {
-        this.investimentos = investimentos;
-    }
-
-    public void setEmprestimos(List<Emprestimo> emprestimos) {
-        this.emprestimos = emprestimos;
-    }
-
-    public void setFinanciamentos(List<Credito> financiamentos) {
-        this.financiamentos = financiamentos;
-    }
-
-    public String getTitular() {
-        return titular;
-    }
-    
-    public List<Transferencia> getTransferencias() {
-        return transferencias;
-    }
-
-    public List<Saque> getSaques() {
-        return saques;
-    }
-
-    public List<Deposito> getDepositos() {
-        return depositos;
-    }
-
-    public List<Investimento> getInvestimentos() {
-        return investimentos;
-    }
-
-    public List<Emprestimo> getEmprestimos() {
-        return emprestimos;
-    }
-
-    public List<Credito> getFinanciamentos() {
-        return financiamentos;
-    }
-    
 }

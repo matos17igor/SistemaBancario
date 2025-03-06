@@ -1,7 +1,7 @@
 package com.company.view.paineis;
 
 import com.company.model.Cliente;
-import com.company.model.Conta;
+import com.company.model.Movimentacao;
 import com.company.persistence.ClientePersistence;
 import com.company.persistence.Persistence;
 
@@ -81,11 +81,13 @@ public class PainelDeposito extends JPanel {
 
                 // Realizar o depósito
                 contaDeposito.getConta().setSaldo(contaDeposito.getConta().getSaldo() + valor);
-                clientePersistence.save(clientes);
-                System.out.println("Saldo novo: " + contaDeposito.getConta().getSaldo());
+                
+                // Adiciona a movimentacao
+                Movimentacao movimentacao = new Movimentacao(valor, "Deposito", contaDeposito.getConta().getTitular());
+                contaDeposito.getConta().setMovimentacoes(movimentacao);
 
                 JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                clientePersistence.save(clientes);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Valor inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
             }

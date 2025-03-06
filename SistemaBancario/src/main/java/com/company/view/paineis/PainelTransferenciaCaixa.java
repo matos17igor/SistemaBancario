@@ -1,6 +1,7 @@
 package com.company.view.paineis;
 
 import com.company.model.Cliente;
+import com.company.model.Movimentacao;
 import com.company.model.Transferencia;
 import com.company.persistence.ClientePersistence;
 import com.company.persistence.Persistence;
@@ -99,6 +100,10 @@ public class PainelTransferenciaCaixa extends JPanel {
             contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - transferencia.getValor());
             contaDestino.getConta().setSaldo(contaDestino.getConta().getSaldo() + transferencia.getValor());
             
+            // Adiciona a movimentacao
+            Movimentacao movimentacao = new Movimentacao(transferencia.getValor(), "Transferência", contaOrigem.getConta().getTitular());
+            contaOrigem.getConta().setMovimentacoes(movimentacao);
+            contaDestino.getConta().setMovimentacoes(movimentacao);
             
             JOptionPane.showMessageDialog(null, "Transferência aprovada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             TransferenciaPersistence.removerSolicitacao(transferencia);
