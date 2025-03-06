@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class PainelCadastroRendaVariavel extends JPanel{
     
-    private JTextField campoOpcao;
+    private JComboBox<String> campoOpcao;
     private JTextField campoValor;
     private JTextField campoPrazo;
     private JTextField campoRisco;
@@ -21,13 +21,16 @@ public class PainelCadastroRendaVariavel extends JPanel{
         
         JLabel labelOpcao = new JLabel("Opção escolhida:");
         labelOpcao.setAlignmentX(Component.CENTER_ALIGNMENT);
-        campoOpcao = new JTextField("");
+        campoOpcao = new JComboBox<>();
+        campoOpcao.addItem("Ações");
+        campoOpcao.addItem("Fundos de investimento");
+        campoOpcao.addItem("Imóveis");
         
-        JLabel labelValor = new JLabel("Valor a Investir:");
+        JLabel labelValor = new JLabel("Valor minímo:");
         labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoValor = new JTextField("");
         
-        JLabel labelPrazo = new JLabel("Prazo(meses):");
+        JLabel labelPrazo = new JLabel("Taxa de rendimento:");
         labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoPrazo = new JTextField("");
         
@@ -82,15 +85,15 @@ public class PainelCadastroRendaVariavel extends JPanel{
         public void actionPerformed(ActionEvent e) {
             try {
                 double valor = Double.parseDouble(campoValor.getText());
-                int prazo = Integer.parseInt(campoPrazo.getText());
-                double risco = Double.parseDouble(campoValor.getText());
-                String nome = campoOpcao.getText().trim();
+                int taxa = Integer.parseInt(campoPrazo.getText());
+                double risco = Double.parseDouble(campoRisco.getText());
+                String opcaoSelecionada = (String) campoOpcao.getSelectedItem();
                 
-                if (valor <= 0 || prazo <= 0 || risco <= 0) {
+                if (valor <= 0 || taxa <= 0 || risco <= 0) {
                 throw new IllegalArgumentException("Os valores devem ser inseridos corretamente.");
             }
 
-                InvestimentoRendaVariavel investimento = new InvestimentoRendaVariavel(nome,valor,risco,prazo);
+                InvestimentoRendaVariavel investimento = new InvestimentoRendaVariavel(opcaoSelecionada,valor,taxa,risco);
                 InvestimentoRendaVariavelPersistence ip = new InvestimentoRendaVariavelPersistence();
                 ip.adicionarSolicitacao(investimento);
 

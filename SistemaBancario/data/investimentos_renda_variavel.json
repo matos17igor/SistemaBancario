@@ -1,1 +1,6 @@
-[{"percentualRisco":12.0,"nome":"acoes","valorMinimo":1000.0,"taxaRendimento":1000.0}]
+[ {
+        "percentualRisco": 10.0,
+        "nome": "Ações",
+        "valorMinimo": 1000.0,
+        "taxaRendimento": 100.0
+    }]

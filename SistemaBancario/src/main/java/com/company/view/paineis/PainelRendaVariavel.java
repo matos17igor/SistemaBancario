@@ -1,73 +1,146 @@
 package com.company.view.paineis;
 
+import com.company.model.Cliente;
+import com.company.model.InvestimentoRendaVariavel;
+import com.company.persistence.InvestimentoRendaVariavelPersistence;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class PainelRendaVariavel extends JPanel {
-    private JTextField campoValorInvestir;
-    private JTextField campoPrazo;
-    private JComboBox campoRiscoEstimado;
-    private JButton btnInvestir;
-    
-    public PainelRendaVariavel() {
+
+    private JComboBox<InvestimentoRendaVariavel> comboInvestimentos;
+    private JButton btnConfirmar;
+    private static JTextField campoValorMin;
+    private static JTextField campoTaxa;
+    private static JTextField campoRisco;
+    private static JTextField campoValor;
+    private Cliente cliente;
+
+    public PainelRendaVariavel(Cliente cliente) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.cliente = cliente;
+        comboInvestimentos = new JComboBox<>();
+        btnConfirmar = new JButton("Investir");
+        campoValorMin = new JTextField();
+        campoTaxa = new JTextField();
+        campoRisco = new JTextField();
+        campoValor = new JTextField();
 
-        JLabel labelValorInvestir = new JLabel("Valor a Investir:");
-        labelValorInvestir.setAlignmentX(Component.CENTER_ALIGNMENT);
-        campoValorInvestir = new JTextField();
+        JLabel labelInvestimentos = new JLabel("Investimento cadastrados:");
+        labelInvestimentos.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelValorMin = new JLabel("Valor mínimo:");
+        labelValorMin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelTaxa = new JLabel("Taxa de rentabilidade:");
+        labelTaxa.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelRisco = new JLabel("Risco mínimo (meses):");
+        labelRisco.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelValor = new JLabel("Valor a ser investido:");
+        labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel labelPrazo = new JLabel("Prazo (meses):");
-        labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        campoPrazo = new JTextField();
-        
-        JLabel labelRiscoEstimado = new JLabel("Risco estimado:");
-        labelRiscoEstimado.setAlignmentX(Component.CENTER_ALIGNMENT);
-        campoRiscoEstimado = new JComboBox<>(new String[]{"Baixo", "Médio", "Alto"});
-        
-        btnInvestir = new JButton("Investir");
-        btnInvestir.addActionListener(new InvestirListener());
+        carregarSolicitacoes();
+        comboInvestimentos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InvestimentoRendaVariavel selecionado = (InvestimentoRendaVariavel) comboInvestimentos.getSelectedItem();
+                onComboBoxChange(selecionado);
+            }
+        });
 
         Dimension campoSize = new Dimension(300, 30);
-        campoValorInvestir.setPreferredSize(campoSize);
-        campoValorInvestir.setMaximumSize(campoSize);
-        campoPrazo.setPreferredSize(campoSize);
-        campoPrazo.setMaximumSize(campoSize);
-        campoRiscoEstimado.setPreferredSize(campoSize);
-        campoRiscoEstimado.setMaximumSize(campoSize);
+        comboInvestimentos.setMaximumSize(campoSize);
+        comboInvestimentos.setPreferredSize(campoSize);
+        campoValorMin.setPreferredSize(campoSize);
+        campoValorMin.setMaximumSize(campoSize);
+        campoTaxa.setPreferredSize(campoSize);
+        campoTaxa.setMaximumSize(campoSize);
+        campoRisco.setPreferredSize(campoSize);
+        campoRisco.setMaximumSize(campoSize);
+        campoValor.setPreferredSize(campoSize);
+        campoValor.setMaximumSize(campoSize);
 
-        Dimension buttonSize = new Dimension(150, 30);
-        btnInvestir.setPreferredSize(buttonSize);
-        btnInvestir.setAlignmentX(Component.CENTER_ALIGNMENT);
+        campoRisco.setEditable(false);
+        campoValorMin.setEditable(false);
+        campoTaxa.setEditable(false);
 
-        add(labelValorInvestir);
-        add(campoValorInvestir);
+        JScrollPane scrollPane = new JScrollPane(comboInvestimentos);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setMaximumSize(campoSize);
+        scrollPane.setPreferredSize(campoSize);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        btnConfirmar.addActionListener(new InvestirListener());
+        btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnConfirmar.setPreferredSize(new Dimension(150, 30));
+
+        add(labelInvestimentos);
         add(Box.createVerticalStrut(10));
-        add(labelPrazo);
-        add(campoPrazo);
+        add(scrollPane);
+        add(labelValorMin);
+        add(campoValorMin);
         add(Box.createVerticalStrut(10));
-        add(labelRiscoEstimado);
-        add(campoRiscoEstimado);
+        add(labelTaxa);
+        add(campoTaxa);
+        add(Box.createVerticalStrut(10));
+        add(labelRisco);
+        add(campoRisco);
+        add(Box.createVerticalStrut(10));
+        add(labelValor);
+        add(campoValor);
         add(Box.createVerticalStrut(20));
-        add(btnInvestir);
+        add(btnConfirmar);
     }
-    
+
+    private static void onComboBoxChange(InvestimentoRendaVariavel novoInvestimento) {
+        if (novoInvestimento != null) {
+            campoValorMin.setText(String.valueOf(novoInvestimento.getValorMinimo()));
+            campoTaxa.setText(String.valueOf(novoInvestimento.getTaxaRendimento()));
+            campoRisco.setText(String.valueOf(novoInvestimento.getRisco()));
+        } else {
+            // Limpa os campos caso a combobox esteja vazia
+            campoValorMin.setText("");
+            campoTaxa.setText("");
+            campoRisco.setText("");
+        }
+    }
+
+    private void carregarSolicitacoes() {
+        comboInvestimentos.removeAllItems();
+        InvestimentoRendaVariavelPersistence cp = new InvestimentoRendaVariavelPersistence();
+        List<InvestimentoRendaVariavel> solicitacoes = cp.getSolicitacoes();
+
+        for (InvestimentoRendaVariavel c : solicitacoes) {
+            comboInvestimentos.addItem(c);
+        }
+    }
+
     private class InvestirListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                double valor = Double.parseDouble(campoValorInvestir.getText());
-                int prazo = Integer.parseInt(campoPrazo.getText());
-                String risco = campoRiscoEstimado.getSelectedItem().toString();
-                
-                if (valor <= 0 || prazo <= 0) {
-                    throw new NumberFormatException();
-                }
-                JOptionPane.showMessageDialog(null, "Investimento de " + risco.toLowerCase() + " risco realizado com sucesso!","Confirmação", JOptionPane.INFORMATION_MESSAGE);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor, insira valores válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            int index = comboInvestimentos.getSelectedIndex();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione um investimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            InvestimentoRendaVariavelPersistence cp = new InvestimentoRendaVariavelPersistence();
+            InvestimentoRendaVariavel investimento = cp.getSolicitacoes().get(index);
+
+            // Solicita a senha do cliente
+            String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
+
+            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(cliente.getConta().getSenhaTransacao())) {
+                JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Aprovação da transferência pelo caixa
+            JOptionPane.showMessageDialog(null, "Investimento realizado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            carregarSolicitacoes();
         }
     }
 }

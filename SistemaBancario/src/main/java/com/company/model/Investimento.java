@@ -1,6 +1,7 @@
 package com.company.model;
 
-public abstract class Investimento {
+public class Investimento {
+
     protected String nome;
     protected double valorMinimo;
     protected double taxaRendimento;
@@ -10,11 +11,11 @@ public abstract class Investimento {
         this.valorMinimo = valorMinimo;
         this.taxaRendimento = taxaRendimento;
     }
-    
-    public String getNome(){
+
+    public String getNome() {
         return nome;
     }
-    
+
     public double getValorMinimo() {
         return valorMinimo;
     }
@@ -22,6 +23,9 @@ public abstract class Investimento {
     public double getTaxaRendimento() {
         return taxaRendimento;
     }
-    
-    public abstract double calcularRendimento(double valorInvestido, int meses);
+
+    @Override
+    public String toString(){
+        return nome;
+    }
 }
