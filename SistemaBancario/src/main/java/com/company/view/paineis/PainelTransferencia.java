@@ -3,12 +3,11 @@ package com.company.view.paineis;
 import com.company.exception.PasswordException;
 import com.company.exception.SaldoException;
 import com.company.model.Cliente;
-import com.company.model.Conta;
 import com.company.model.Transferencia;
 import com.company.persistence.Persistence;
 import com.company.persistence.ClientePersistence;
-import com.company.persistence.ContaPersistence;
 import com.company.persistence.TransferenciaPersistence;
+import com.company.view.TelaCliente;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,13 +21,15 @@ public class PainelTransferencia extends JPanel {
     private JPasswordField campoSenha;
     private JButton btnConfirmar;
     private Cliente cliente;
+    private TelaCliente tela;
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public PainelTransferencia(Cliente cliente) {
+    public PainelTransferencia(Cliente cliente, TelaCliente tela) {
         this.cliente = cliente;
+        this.tela = tela;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel labelContaDestino = new JLabel("Conta de destino:");
@@ -80,31 +81,59 @@ public class PainelTransferencia extends JPanel {
                     throw new NumberFormatException();
                 }
 
-                // Busca conta de destino
-                Persistence<Conta> contaPersistence = new ContaPersistence();
-                Conta contaDestino = null;
-                for (Conta conta : contaPersistence.findAll()) {
-                    if (conta.getNumero().trim().equals(destino.trim())) {
-                        contaDestino = conta;
-                        break;
+                // Buscar conta de destino no sistema
+                Persistence<Cliente> clientePersistence = new ClientePersistence();
+                List<Cliente> clientes = clientePersistence.findAll();
+
+                Cliente contaDestino = null;
+                Cliente contaOrigem = null;
+
+                for (Cliente c : clientes) {
+                    if (c.getConta().getNumero().equals(destino)) {
+                        contaDestino = c;
+                    }
+                    if (c.getConta().getNumero().equals(cliente.getConta().getNumero())) {
+                        contaOrigem = c;  // Encontramos o cliente de origem dentro da lista
                     }
                 }
 
-                if (contaDestino == null) {
-                    JOptionPane.showMessageDialog(null, "Conta de destino não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (contaDestino == null || contaOrigem == null) {
+                    JOptionPane.showMessageDialog(null, "Conta de destino ou origem não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                // Realiza a transferencia
-                Transferencia transferencia = new Transferencia(cliente.getConta(), valor, contaDestino);
-                TransferenciaPersistence.adicionarSolicitacao(transferencia);
-                JOptionPane.showMessageDialog(null, "Solicitação enviada para aprovação do caixa.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                
+                // Realizar a transferência
+                try {
+                    if (contaOrigem.getConta().getSaldo() < valor) {
+                        throw new SaldoException();
+                    }
+                    if (!senha.equals(contaOrigem.getConta().getSenhaTransacao())) {
+                        throw new PasswordException();
+                    }
+                    Transferencia tr = new Transferencia(contaOrigem.getConta(), valor, contaDestino.getConta());
+                    TransferenciaPersistence tp = new TransferenciaPersistence();
+                    tp.adicionarSolicitacao(tr);
+                    contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - valor);
+                    contaDestino.getConta().setSaldo(contaDestino.getConta().getSaldo() + valor);
+
+                    //atualiza interface
+                    tela.setCliente(contaOrigem);
+                    tela.desenhaPainelSuperior();
+
+                    // Salvar todas as mudanças
+                    clientePersistence.save(clientes);
+
+                    JOptionPane.showMessageDialog(null, "Transferência realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (SaldoException | PasswordException error) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor, insira um valor numérico válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Valor inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
+
         }
     }
+
 }
