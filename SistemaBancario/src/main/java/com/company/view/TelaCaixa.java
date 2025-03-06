@@ -1,7 +1,6 @@
 package com.company.view;
 
 import com.company.model.Caixa;
-import com.company.model.Cliente;
 import com.company.view.paineis.*;
 import java.awt.*;
 import javax.swing.*;
@@ -21,6 +20,7 @@ public class TelaCaixa {
     private JButton btnSaque;
     private JButton btnDeposito;
     private JButton btnTransferencia;
+    private JButton btnLogout;
     private JLabel mensagem;
     private Caixa caixa;
 
@@ -52,7 +52,7 @@ public class TelaCaixa {
         painelSuperior = new JPanel();
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
 
-        mensagem = new JLabel("Bem-vindo USER");
+        mensagem = new JLabel("Bem-vindo, " + caixa.getName());
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
 
         painelSuperior.add(mensagem);
@@ -67,6 +67,7 @@ public class TelaCaixa {
         btnSaque = new JButton("Realizar Saque");
         btnDeposito = new JButton("Receber Depósito");
         btnTransferencia = new JButton("Realizar Transferência");
+        btnLogout = new JButton("Sair");
 
         Dimension btnSize = new Dimension(200, 50);
         btnSaque.setPreferredSize(btnSize);
@@ -81,12 +82,18 @@ public class TelaCaixa {
         btnTransferencia.setMaximumSize(btnSize);
         btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        btnLogout.setPreferredSize(btnSize);
+        btnLogout.setMaximumSize(btnSize);
+        btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnSaque);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnDeposito);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnTransferencia);
+        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnLogout);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));
 
@@ -95,6 +102,7 @@ public class TelaCaixa {
         btnSaque.addActionListener(e -> mostrarPainel("saque"));
         btnDeposito.addActionListener(e -> mostrarPainel("deposito"));
         btnTransferencia.addActionListener(e -> mostrarPainel("transferencia"));
+        btnLogout.addActionListener(e -> tela.setVisible(false));
     }
 
     private void desenhaPainelPrincipal() {

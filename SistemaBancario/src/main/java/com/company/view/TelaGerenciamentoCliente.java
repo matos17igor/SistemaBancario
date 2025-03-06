@@ -131,10 +131,14 @@ public class TelaGerenciamentoCliente {
         JButton btnEditar = new JButton("Editar");
         btnEditar.addActionListener(new EditarCliente(this));
 
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> tela.setVisible(false));
+
         JPanel botoes = new JPanel();
         botoes.add(btnAdicionar);
         botoes.add(btnRemover);
         botoes.add(btnEditar);
+        botoes.add(btnVoltar);
 
         painel.add(botoes, BorderLayout.SOUTH);
 

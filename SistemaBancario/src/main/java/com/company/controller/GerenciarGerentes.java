@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.model.Gerente;
 import com.company.persistence.GerentePersistence;
 import com.company.persistence.Persistence;
+import com.company.view.TelaAdmin;
 import com.company.view.TelaGerenciamentoGerente;
 
 import java.awt.event.WindowEvent;
@@ -33,7 +34,7 @@ public class GerenciarGerentes implements WindowListener {
 
     @Override
     public void windowClosed(WindowEvent e) {
-
+        
     }
 
     @Override
