@@ -31,11 +31,13 @@ public class TelaAdmin {
     }
 
     public void desenhaMenuGerente() {
-
+        TelaGerenciamentoGerente tc = new TelaGerenciamentoGerente();
+        tc.desenha();
     }
 
     public void desenhaMenuCaixa() {
-
+        TelaGerenciamentoCaixa tc = new TelaGerenciamentoCaixa();
+        tc.desenha();
     }
 
 }
