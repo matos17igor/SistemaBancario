@@ -13,7 +13,7 @@ public class Conta {
     private List<Deposito> depositos;
     private List<Investimento> investimentos;
     private List<Emprestimo> emprestimos;
-    private List<Financiamento> financiamentos;
+    private List<Credito> financiamentos;
 
     public Conta() {
         
@@ -78,7 +78,7 @@ public class Conta {
         this.emprestimos = emprestimos;
     }
 
-    public void setFinanciamentos(List<Financiamento> financiamentos) {
+    public void setFinanciamentos(List<Credito> financiamentos) {
         this.financiamentos = financiamentos;
     }
 
@@ -106,7 +106,7 @@ public class Conta {
         return emprestimos;
     }
 
-    public List<Financiamento> getFinanciamentos() {
+    public List<Credito> getFinanciamentos() {
         return financiamentos;
     }
     

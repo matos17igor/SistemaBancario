@@ -74,14 +74,13 @@ public class PainelSaque extends JPanel {
                 List<Cliente> clientes = clientePersistence.findAll();
 
                 Cliente contaOrigem = null;
-
+                
                 for (Cliente c : clientes) {
                     if (c.getConta().getNumero().equals(cliente.getConta().getNumero())) {
                         contaOrigem = c;  // Encontramos o cliente de origem dentro da lista
                     }
                 }
 
-                // Realizar a transferência
                 try {
                     if (contaOrigem.getConta().getSaldo() < valor) {
                         throw new SaldoException();
@@ -89,9 +88,6 @@ public class PainelSaque extends JPanel {
                     if (!senha.equals(contaOrigem.getConta().getSenhaTransacao())) {
                         throw new PasswordException();
                     }
-//                  Transferencia tr = new Transferencia(contaOrigem.getConta(), valor, contaDestino.getConta());
-//                  TransferenciaPersistence tp = new TransferenciaPersistence();
-//                  tp.adicionarSolicitacao(tr);
                     Saque sq = new Saque(contaOrigem.getConta(), valor);
                     SaquePersistence sp = new SaquePersistence();
                     sp.adicionarSolicitacao(sq);

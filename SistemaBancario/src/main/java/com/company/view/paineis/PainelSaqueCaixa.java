@@ -76,7 +76,7 @@ public class PainelSaqueCaixa extends JPanel {
             }
 
             // Aprovação da transferência pelo caixa
-                JOptionPane.showMessageDialog(null, "Saque aprovada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Saque aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 SaquePersistence.removerSolicitacao(saques);
                 carregarSolicitacoes();
         }

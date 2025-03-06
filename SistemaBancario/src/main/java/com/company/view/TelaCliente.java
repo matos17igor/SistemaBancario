@@ -155,7 +155,7 @@ public class TelaCliente {
         painelPrincipal.add(new PainelConsulta(getCliente()), "consulta");
         painelPrincipal.add(new PainelRendaFixa(), "rendaFixa");
         painelPrincipal.add(new PainelRendaVariavel(), "rendaVariavel");
-        painelPrincipal.add(new PainelSolicitacao(), "solicitacao");
+        painelPrincipal.add(new PainelSolicitacao(cliente), "solicitacao");
         painelPrincipal.add(new PainelSaque(cliente, this), "saque");
         painelPrincipal.setBorder(new EmptyBorder(0, 0, 0, 70));
 

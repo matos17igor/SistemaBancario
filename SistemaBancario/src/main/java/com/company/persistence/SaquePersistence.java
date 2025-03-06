@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaquePersistence {
-    private static final String FILE_PATH = DIRECTORY + File.separator + "saques.json";
+    private static final String FILE_PATH = DIRECTORY + File.separator + "saques_pendentes.json";
     private static List<Saque> solicitacoes = new ArrayList<>();
 
     // Carrega os saques do arquivo JSON ao iniciar
