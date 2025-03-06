@@ -66,15 +66,15 @@ public class GerentePersistence implements Persistence<Gerente> {
     }
 
     @Override
-    public void add(Gerente novoCliente) {
+    public void add(Gerente novoGerente) {
         Gson gson = new Gson();
-        List<Gerente> gerentesExistentes = load(); // Carrega os clientes já salvos
+        List<Gerente> gerentesExistentes = findAll(); 
 
         if (gerentesExistentes == null) {
             gerentesExistentes = new ArrayList<>();
         }
 
-        gerentesExistentes.add(novoCliente); // Adiciona o novo cliente
+        gerentesExistentes.add(novoGerente); 
 
         String json = gson.toJson(gerentesExistentes);
 

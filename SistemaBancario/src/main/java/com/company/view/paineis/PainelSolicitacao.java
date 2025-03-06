@@ -97,7 +97,7 @@ public class PainelSolicitacao extends JPanel {
 
                 Credito c = new Credito(tipo, clienteOrigem, valor, entrada, parcelas, 0);
                 CreditoPersistence cp = new CreditoPersistence();
-                cp.add(c);
+                cp.adicionarSolicitacao(c);
 
                 // Salvar todas as mudanças
                 clientePersistence.save(clientes);

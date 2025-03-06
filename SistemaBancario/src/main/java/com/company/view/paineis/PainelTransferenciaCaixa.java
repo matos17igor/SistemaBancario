@@ -49,8 +49,8 @@ public class PainelTransferenciaCaixa extends JPanel {
         comboSolicitacoes.removeAllItems();
         List<Transferencia> solicitacoes = TransferenciaPersistence.getSolicitacoes();
         for (Transferencia t : solicitacoes) {
-            comboSolicitacoes.addItem("Origem: " + t.getOrigem().getNumero() +
-                                      " | Destino: " + t.getDestino().getNumero() + 
+            comboSolicitacoes.addItem("Cliente: " + t.getOrigem().getTitular() +
+                                      " | Destino: " + t.getDestino().getTitular() + 
                                       " | Valor: R$" + t.getValor());
         }
     }
@@ -64,7 +64,8 @@ public class PainelTransferenciaCaixa extends JPanel {
                 return;
             }
 
-            Transferencia transferencia = TransferenciaPersistence.getSolicitacoes().get(index);
+            TransferenciaPersistence tp = new TransferenciaPersistence();
+            Transferencia transferencia = tp.getSolicitacoes().get(index);
             
             // Solicita a senha do cliente
             String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");

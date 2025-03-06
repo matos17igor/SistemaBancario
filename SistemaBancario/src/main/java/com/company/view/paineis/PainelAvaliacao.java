@@ -1,84 +1,151 @@
 package com.company.view.paineis;
 
+import com.company.model.Credito;
+import com.company.model.Credito;
+import com.company.persistence.CreditoPersistence;
+import com.company.persistence.CreditoPersistence;
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class PainelAvaliacao extends JPanel {
-    
-    public PainelAvaliacao(){
+
+    private JComboBox<Credito> comboSolicitacoes;
+    private JButton btnConfirmar;
+    private static JTextField campoTipo;
+    private static JTextField campoValorCredito;
+    private static JTextField campoEntrada;
+    private static JTextField campoPrazo;
+
+    public PainelAvaliacao() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
-        JLabel labelValor = new JLabel("Valor de Crédito:");
-        labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField campoValor = new JTextField("Valor");
-        campoValor.setEditable(false);
-        
-        JLabel labelPrazo = new JLabel("Prazo:");
+
+        comboSolicitacoes = new JComboBox<Credito>();
+        btnConfirmar = new JButton("Aprovar Crédito");
+        campoPrazo = new JTextField();
+        campoEntrada = new JTextField();
+        campoTipo = new JTextField();
+        campoValorCredito = new JTextField();
+
+        JLabel labelSolicitacoes = new JLabel("Solicitações Pendentes:");
+        labelSolicitacoes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelTipo = new JLabel("Tipo:");
+        labelTipo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelValorCredito = new JLabel("Valor do Crédito:");
+        labelValorCredito.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelEntrada = new JLabel("Entrada:");
+        labelEntrada.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel labelPrazo = new JLabel("Parcelas:");
         labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField campoPrazo = new JTextField("Prazo");
-        campoPrazo.setEditable(false);
-        
-        JLabel labelSaldo = new JLabel("Saldo Atual: R$0,00");
-        labelSaldo.setFont(new Font("Arial", Font.BOLD, 16));
-        labelSaldo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        JLabel labelExtrato = new JLabel("Extrato:");
-        labelExtrato.setAlignmentX(Component.CENTER_ALIGNMENT);
-        String[] colunas = {"Conta Destino", "Transferência", "Valor"};
-        Object[][] dados = {
-            {"Pedro", "Saque", "R$ 1.000,00"},
-            {"Pedro", "Depósito", "R$ 500,00"},
-            {"Pedro", "Transferência", "R$ 2.000,00"},
-            {"Pedro", "Investimento", "R$ 300,00"},
-            {"Pedro", "Saque", "R$ 1.000,00"},
-            {"Pedro", "Depósito", "R$ 500,00"},
-            {"Pedro", "Transferência", "R$ 2.000,00"},
-            {"Pedro", "Investimento", "R$ 300,00"}
-        };
-        DefaultTableModel modelo = new DefaultTableModel(dados, colunas);
-        JTable tabela = new JTable(modelo);
-        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane campoTabela = new JScrollPane(tabela);
-        
-        JButton btnAutorizar = new JButton("Autorizar");
-        btnAutorizar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnAutorizar.addActionListener(e -> {
-            // Função que será executada quando o botão for clicado
-            JOptionPane.showMessageDialog(this, "Crédito Autorizado!");
+
+        carregarSolicitacoes();
+        comboSolicitacoes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Credito selecionado = (Credito) comboSolicitacoes.getSelectedItem();
+                onComboBoxChange(selecionado);
+            }
         });
-        
-        
+
         Dimension campoSize = new Dimension(300, 30);
-        campoValor.setPreferredSize(campoSize);
-        campoValor.setMaximumSize(campoSize);
+        comboSolicitacoes.setMaximumSize(campoSize);
+        comboSolicitacoes.setPreferredSize(campoSize);
+        campoTipo.setPreferredSize(campoSize);
+        campoTipo.setMaximumSize(campoSize);
+        campoValorCredito.setPreferredSize(campoSize);
+        campoValorCredito.setMaximumSize(campoSize);
+        campoEntrada.setPreferredSize(campoSize);
+        campoEntrada.setMaximumSize(campoSize);
         campoPrazo.setPreferredSize(campoSize);
         campoPrazo.setMaximumSize(campoSize);
-        campoTabela.setPreferredSize(new Dimension(300, 100));
-        campoTabela.setMaximumSize(new Dimension(300, 100));
-        btnAutorizar.setPreferredSize(new Dimension(150, 30));
-        btnAutorizar.setMaximumSize(new Dimension(150, 30));
-        
-        
-        add(Box.createVerticalStrut(35));
-        add(labelValor);
-        add(Box.createVerticalStrut(3));
-        add(campoValor);
-        
-        add(Box.createVerticalStrut(15));
+
+        campoTipo.setEditable(false);
+        campoValorCredito.setEditable(false);
+        campoEntrada.setEditable(false);
+        campoPrazo.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(comboSolicitacoes);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setMaximumSize(campoSize);
+        scrollPane.setPreferredSize(campoSize);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        btnConfirmar.addActionListener(new AprovarCreditoListener());
+        btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnConfirmar.setPreferredSize(new Dimension(150, 30));
+
+        add(labelSolicitacoes);
+        add(Box.createVerticalStrut(10));
+        add(scrollPane);
+        add(labelTipo);
+        add(campoTipo);
+        add(Box.createVerticalStrut(10));
+        add(labelValorCredito);
+        add(campoValorCredito);
+        add(Box.createVerticalStrut(10));
+        add(labelEntrada);
+        add(campoEntrada);
+        add(Box.createVerticalStrut(10));
         add(labelPrazo);
-        add(Box.createVerticalStrut(3));
         add(campoPrazo);
-        
-        add(Box.createVerticalStrut(15));
-        add(labelSaldo);
-        
-        add(Box.createVerticalStrut(15));
-        add(labelExtrato);
-        add(Box.createVerticalStrut(3));
-        add(campoTabela);
-        
-        add(Box.createVerticalStrut(15));
-        add(btnAutorizar);
+        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(20));
+        add(btnConfirmar);
+    }
+
+    private static void onComboBoxChange(Credito novoCredito) {
+        if (novoCredito != null) {
+            campoTipo.setText(String.valueOf(novoCredito.getTipo()));
+            campoValorCredito.setText(String.valueOf(novoCredito.getValor()));
+            campoEntrada.setText(String.valueOf(novoCredito.getEntrada()));
+            campoPrazo.setText(String.valueOf(novoCredito.getParcelas()));
+        } else {
+            // Limpa os campos caso a combobox esteja vazia
+            campoTipo.setText("");
+            campoValorCredito.setText("");
+            campoEntrada.setText("");
+            campoPrazo.setText("");
+        }
+    }
+
+    private void carregarSolicitacoes() {
+        comboSolicitacoes.removeAllItems();
+        CreditoPersistence cp = new CreditoPersistence();
+        List<Credito> solicitacoes = cp.getSolicitacoes();
+
+        for (Credito c : solicitacoes) {
+            comboSolicitacoes.addItem(c);
+        }
+    }
+
+    private class AprovarCreditoListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = comboSolicitacoes.getSelectedIndex();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione uma solicitação para aprovar.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            CreditoPersistence cp = new CreditoPersistence();
+            Credito credito = cp.getSolicitacoes().get(index);
+
+            // Solicita a senha do cliente
+            String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
+
+            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(credito.getCliente().getConta().getSenhaTransacao())) {
+                JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Aprovação da transferência pelo caixa
+            JOptionPane.showMessageDialog(null, "Crédito aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            cp.removerSolicitacao(credito);
+            carregarSolicitacoes();
+        }
     }
 }
