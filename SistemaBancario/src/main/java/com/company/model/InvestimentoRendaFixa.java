@@ -8,14 +8,7 @@ public class InvestimentoRendaFixa extends Investimento {
         this.prazoMinimo = prazoMinimo;
     }
 
-    @Override
-    public double calcularRendimento(double valorInvestido, int meses) {
-        if(meses < prazoMinimo){
-            return 0;
-        }
-        return valorInvestido * taxaRendimento * meses;
+    public int getPrazoMinimo() {
+        return prazoMinimo;
     }
-    
-    
-    
 }
