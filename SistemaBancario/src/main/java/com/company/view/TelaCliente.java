@@ -22,6 +22,7 @@ public class TelaCliente {
     private JButton btnRendaFixa;
     private JButton btnRendaVariavel;
     private JButton btnSolicitacao;
+    private JButton btnSaque;
     private JLabel mensagem;
     private JLabel saldo;
     private Cliente cliente;
@@ -82,6 +83,7 @@ public class TelaCliente {
         btnRendaFixa = new JButton("Investimento em Renda Fixa");
         btnRendaVariavel = new JButton("Investimento em Renda Variável");
         btnSolicitacao = new JButton("Solicitação de Crédito");
+        btnSaque = new JButton("Solicitação de Saque");
 
         Dimension btnSize = new Dimension(200, 50);
         btnTransferencia.setPreferredSize(btnSize);
@@ -103,6 +105,10 @@ public class TelaCliente {
         btnSolicitacao.setPreferredSize(btnSize);
         btnSolicitacao.setMaximumSize(btnSize);
         btnSolicitacao.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        btnSaque.setPreferredSize(btnSize);
+        btnSaque.setMaximumSize(btnSize);
+        btnSaque.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnTransferencia);
@@ -115,6 +121,7 @@ public class TelaCliente {
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnSolicitacao);
         painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(btnSaque);
         painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));
 
         tela.add(painelBotoes, BorderLayout.WEST);
@@ -124,6 +131,7 @@ public class TelaCliente {
         btnRendaFixa.addActionListener(e -> mostrarPainel("rendaFixa"));
         btnRendaVariavel.addActionListener(e -> mostrarPainel("rendaVariavel"));
         btnSolicitacao.addActionListener(e -> mostrarPainel("solicitacao"));
+        btnSaque.addActionListener(e -> mostrarPainel("saque"));
     }
 
     public void desenhaPainelPrincipal() {
@@ -139,6 +147,7 @@ public class TelaCliente {
         painelPrincipal.add(new PainelRendaFixa(), "rendaFixa");
         painelPrincipal.add(new PainelRendaVariavel(), "rendaVariavel");
         painelPrincipal.add(new PainelSolicitacao(), "solicitacao");
+        painelPrincipal.add(new PainelSaque(cliente, this), "saque");
         painelPrincipal.setBorder(new EmptyBorder(0, 0, 0, 70));
 
         tela.add(painelPrincipal, BorderLayout.EAST);

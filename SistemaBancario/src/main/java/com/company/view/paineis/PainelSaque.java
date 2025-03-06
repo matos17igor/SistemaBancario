@@ -4,29 +4,36 @@ import com.company.exception.PasswordException;
 import com.company.exception.SaldoException;
 import com.company.model.Cliente;
 import com.company.model.Conta;
+import com.company.model.Saque;
+import com.company.persistence.ClientePersistence;
+import com.company.persistence.Persistence;
+import com.company.persistence.SaquePersistence;
+import com.company.view.TelaCaixa;
+import com.company.view.TelaCliente;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class PainelSaque extends JPanel {
     private JTextField campoValor;
     private JPasswordField campoSenha;
     private JButton btnConfirmar;
     private Cliente cliente;
+    private TelaCliente tela;
 
-    public PainelSaque() {
-        //this.cliente = cliente;
+    public PainelSaque(Cliente cliente, TelaCliente tela) {
+        this.cliente = cliente;
+        this.tela = tela;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel labelValor = new JLabel("Valor do saque:");
         labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoValor = new JTextField();
-        campoValor.setEditable(false);
         JLabel labelSenha = new JLabel("Senha de transferência:");
         labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoSenha = new JPasswordField();
-        campoSenha.setEditable(false);
         btnConfirmar = new JButton("Confirmar");
 
         configurarComponentes();
@@ -34,7 +41,7 @@ public class PainelSaque extends JPanel {
     }
 
     private void configurarComponentes() {
-        Dimension campoSize = new Dimension(300, 30);
+        Dimension campoSize = new Dimension(350, 30);
         campoValor.setPreferredSize(campoSize);
         campoValor.setMaximumSize(campoSize);
         campoSenha.setPreferredSize(campoSize);
@@ -62,16 +69,49 @@ public class PainelSaque extends JPanel {
                     throw new NumberFormatException();
                 }
                 
-                Conta conta = cliente.getConta();
-                if(conta == null){
-                    JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
+                // Buscar conta de destino no sistema
+                Persistence<Cliente> clientePersistence = new ClientePersistence();
+                List<Cliente> clientes = clientePersistence.findAll();
+
+                Cliente contaOrigem = null;
+
+                for (Cliente c : clientes) {
+                    if (c.getConta().getNumero().equals(cliente.getConta().getNumero())) {
+                        contaOrigem = c;  // Encontramos o cliente de origem dentro da lista
+                    }
                 }
-                
-                cliente.realizaTransferencia(valor, cliente.getConta(), senha);
-                JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SaldoException | PasswordException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+
+                // Realizar a transferência
+                try {
+                    if (contaOrigem.getConta().getSaldo() < valor) {
+                        throw new SaldoException();
+                    }
+                    if (!senha.equals(contaOrigem.getConta().getSenhaTransacao())) {
+                        throw new PasswordException();
+                    }
+//                  Transferencia tr = new Transferencia(contaOrigem.getConta(), valor, contaDestino.getConta());
+//                  TransferenciaPersistence tp = new TransferenciaPersistence();
+//                  tp.adicionarSolicitacao(tr);
+                    Saque sq = new Saque(contaOrigem.getConta(), valor);
+                    SaquePersistence sp = new SaquePersistence();
+                    sp.adicionarSolicitacao(sq);
+                    contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - valor);
+
+                    //atualiza interface
+                    tela.setCliente(contaOrigem);
+                    tela.desenhaPainelSuperior();
+                    tela.desenhaPainelPrincipal();
+                    
+
+                    // Salvar todas as mudanças
+                    clientePersistence.save(clientes);
+
+                    JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (SaldoException | PasswordException error) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Valor inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
             }

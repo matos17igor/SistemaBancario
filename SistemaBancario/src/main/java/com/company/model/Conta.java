@@ -50,6 +50,38 @@ public class Conta {
         this.senhaTransacao = senhaTransacao;
     }
 
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public void setTransferencias(Transferencia transferencias) {
+        this.transferencias.add(transferencias);
+    }
+
+    public void setSaques(Saque saques) {
+        this.saques.add(saques);
+    }
+
+    public void setDepositos(List<Deposito> depositos) {
+        this.depositos = depositos;
+    }
+
+    public void setInvestimentos(List<Investimento> investimentos) {
+        this.investimentos = investimentos;
+    }
+
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
+    public void setFinanciamentos(List<Financiamento> financiamentos) {
+        this.financiamentos = financiamentos;
+    }
+
     public String getTitular() {
         return titular;
     }
