@@ -16,6 +16,8 @@ public class InvestimentoRendaFixa extends Investimento {
         return valorInvestido * taxaRendimento * meses;
     }
     
-    
+     public double getPrazoMinimo() {
+        return prazoMinimo;
+    }
     
 }

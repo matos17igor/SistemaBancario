@@ -41,14 +41,14 @@ public class TelaGerenciamentoCliente {
 
     public void desenha() {
 
-        tela = new JFrame("Gerenciamento de clientes");
-        tela.addWindowListener(new GerenciarClientes(this));
-        tela.setSize(WIDTH, HEIGHT);
-        tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        tela.setVisible(true);
-        tela.setLayout(new BorderLayout());
-        tela.setResizable(false);
-        tela.setLocationRelativeTo(null);
+        tela = new JFrame("Gerenciamento de clientes"); //modelo
+        tela.addWindowListener(new GerenciarClientes(this));    //Carrega os clientes salvos quando a janela for aberta e salva os clientes atualizados quando a janela for fechada
+        tela.setSize(WIDTH, HEIGHT); //modelo
+        tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //modelo
+        tela.setVisible(true); //modelo
+        tela.setLayout(new BorderLayout()); //modelo
+        tela.setResizable(false); //modelo
+        tela.setLocationRelativeTo(null); //modelo
 
         desenhaLista();
         desenhaFormulario();

@@ -1,6 +1,6 @@
 package com.company.persistence;
 
-import com.company.model.Transferencia;
+import com.company.model.InvestimentoRendaFixa;
 import static com.company.persistence.Persistence.DIRECTORY;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,26 +9,26 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransferenciaPersistence {
+public class InvestimentoRendaFixaPersistence {
     private static final String FILE_PATH = DIRECTORY + File.separator + "transferencias_pendentes.json";
-    private static List<Transferencia> solicitacoes = new ArrayList<>();
+    private static List<InvestimentoRendaFixa> solicitacoes = new ArrayList<>();
 
     // Carrega as transferências do arquivo JSON ao iniciar
     static {
         carregarSolicitacoes();
     }
 
-    public static void adicionarSolicitacao(Transferencia transferencia) {
-        solicitacoes.add(transferencia);
+    public static void adicionarSolicitacao(InvestimentoRendaFixa investimento) {
+        solicitacoes.add(investimento);
         salvarSolicitacoes();
     }
 
-    public static List<Transferencia> getSolicitacoes() {
+    public static List<InvestimentoRendaFixa> getSolicitacoes() {
         return new ArrayList<>(solicitacoes);
     }
 
-    public static void removerSolicitacao(Transferencia transferencia) {
-        solicitacoes.remove(transferencia);
+    public static void removerSolicitacao(InvestimentoRendaFixa investimento) {
+        solicitacoes.remove(investimento);
         salvarSolicitacoes();
     }
 
@@ -49,8 +49,8 @@ public class TransferenciaPersistence {
 
         try (Reader reader = new FileReader(FILE_PATH)) {
             Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Transferencia>>() {}.getType();
-            List<Transferencia> listaCarregada = gson.fromJson(reader, listType);
+            Type listType = new TypeToken<ArrayList<InvestimentoRendaFixa>>() {}.getType();
+            List<InvestimentoRendaFixa> listaCarregada = gson.fromJson(reader, listType);
             if (listaCarregada != null) {
                 solicitacoes = listaCarregada;
             }

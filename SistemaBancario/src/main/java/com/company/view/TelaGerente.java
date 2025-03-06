@@ -103,7 +103,7 @@ public class TelaGerente {
         painelBotoes.add(Box.createVerticalStrut(15));
         painelBotoes.add(btnAvaliacao);
         
-         painelBotoes.setBorder(new EmptyBorder(0, 60, 0, 0)); //setBorder: utilizado para definir a borda de um componente em Java, EmptyBorder: usado para adicionar espaçamento interno (margem) dentro do componente
+        painelBotoes.setBorder(new EmptyBorder(0, 60, 0, 0)); //setBorder: utilizado para definir a borda de um componente em Java, EmptyBorder: usado para adicionar espaçamento interno (margem) dentro do componente
         
         tela.add(painelBotoes, BorderLayout.WEST);
         

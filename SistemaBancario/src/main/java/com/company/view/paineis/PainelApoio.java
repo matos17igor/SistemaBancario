@@ -1,17 +1,29 @@
 package com.company.view.paineis;
 
+import com.company.model.Transferencia;
 import javax.swing.*;
 import java.awt.*;
 
 public class PainelApoio extends JPanel {
     
-    double valor = 1000000;
+    private JList<Transferencia> jltransferencias;
     
     public PainelApoio() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        if(valor >= 1000000){
-        // Exemplo de botão
+            
+            JPanel extrato1MI = new JPanel();
+            extrato1MI.setBorder(BorderFactory.createTitledBorder("Movimentacoes acima de R$1.000.000,00"));
+            extrato1MI.setPreferredSize(new Dimension(400 , 200));
+            extrato1MI.setLayout(new BorderLayout());
+            
+            DefaultListModel<Transferencia> model = new DefaultListModel<>();
+            
+            jltransferencias = new JList<>(model);
+            
+            extrato1MI.add(new JScrollPane(jltransferencias), BorderLayout.CENTER);
+            
+            /* Exemplo de botão
         
             JLabel labelOperacao = new JLabel("Operacao:");
             labelOperacao.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -66,15 +78,9 @@ public class PainelApoio extends JPanel {
         
             add(Box.createVerticalStrut(15));
             add(btnConfirmar);
-        }
-        else {
-            JLabel labelVazio = new JLabel("Sem operacoes para serem visualizadas!");
-            labelVazio.setAlignmentX(Component.CENTER_ALIGNMENT);
-            labelVazio.setFont(new Font("Arial", Font.BOLD, 16));
-            
-            add(Box.createVerticalStrut(250));
-            add(labelVazio);
-        }
+
+            */
+       
         
     }
 }

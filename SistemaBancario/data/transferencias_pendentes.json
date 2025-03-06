@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 []
+=======
+[{"destino":{"numero":"8c55a7c4-5b2c-49cd-ab62-4e6a8e98e22d","saldo":0.0,"senhaTransacao":"igor123","titular":"Igor","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"origem":{"numero":"869727d7-084d-4ad2-a827-9f9c51feb53d","saldo":1000000.0,"senhaTransacao":"123","titular":"pedro","transferencias":[],"saques":[],"depositos":[],"investimentos":[]},"valor":10.0,"data":"Mar 6, 2025, 10:04:01 AM"}]
+>>>>>>> pedro
