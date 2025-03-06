@@ -30,6 +30,8 @@ public class PainelTransferenciaCaixa extends JPanel {
         comboSolicitacoes.setPreferredSize(comboSize);
         
         JScrollPane scrollPane = new JScrollPane(comboSolicitacoes);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setMaximumSize(comboSize);
         scrollPane.setPreferredSize(comboSize);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
