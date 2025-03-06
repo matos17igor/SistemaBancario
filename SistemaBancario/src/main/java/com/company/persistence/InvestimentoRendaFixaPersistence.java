@@ -1,16 +1,16 @@
 package com.company.persistence;
 
-import com.company.model.InvestimentoRendaFixa;
-import static com.company.persistence.Persistence.DIRECTORY;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.*;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import com.company.model.InvestimentoRendaFixa;//
+import static com.company.persistence.Persistence.DIRECTORY;//
+import com.google.gson.Gson;//
+import com.google.gson.reflect.TypeToken;//
+import java.io.*;//
+import java.lang.reflect.Type;//
+import java.util.ArrayList;//
+import java.util.List;//
 
 public class InvestimentoRendaFixaPersistence {
-    private static final String FILE_PATH = DIRECTORY + File.separator + "transferencias_pendentes.json";
+    private static final String FILE_PATH = DIRECTORY + File.separator + "investimento_renda_fixa.json";
     private static List<InvestimentoRendaFixa> solicitacoes = new ArrayList<>();
 
     // Carrega as transferências do arquivo JSON ao iniciar

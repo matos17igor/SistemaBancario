@@ -2,50 +2,45 @@ package com.company.view.paineis;
 
 import com.company.model.InvestimentoRendaFixa;
 import com.company.persistence.InvestimentoRendaFixaPersistence;
-import com.company.exception.PasswordException;
-import com.company.exception.SaldoException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class PainelCadastroRendaFixa extends JPanel {
     
+    private JTextField campoOpcao;
+    private JTextField campoValor;
+    private JTextField campoPrazo;
+    private JTextField campoTaxa;
     
     public PainelCadastroRendaFixa(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         JLabel labelOpcao = new JLabel("Opção escolhida:");
         labelOpcao.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField campoOpcao = new JTextField("CDB");
+        campoOpcao = new JTextField("CDB");
         
         JLabel labelValor = new JLabel("Valor Mínimo a Investir:");
         labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField campoValor = new JTextField("Valor Investido");
+        campoValor = new JTextField("");
         //campoValor.setEditable(false);
         
         JLabel labelPrazo = new JLabel("Prazo(meses):");
         labelPrazo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField campoPrazo = new JTextField("Prazo");
+        campoPrazo = new JTextField("");
         
         JLabel labelTaxa = new JLabel("Taxa de Rentabilidade(%):");
         labelTaxa.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField campoTaxa = new JTextField("Taxa");
+        campoTaxa = new JTextField("");
         
         JButton btnCadastrar = new JButton("Cadastrar");
         btnCadastrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnCadastrar.addActionListener(new cadastroListener());
     
 
-        btnCadastrar.addActionListener(e -> {
-            // Exemplo de ação: verificando se os campos estão preenchidos e exibindo uma mensagem
-            if (!campoValor.getText().isEmpty() && !campoTaxa.getText().isEmpty() && !campoPrazo.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Renda Fixa cadastrada com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente.", "Erro!", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        
         
         
         Dimension campoSize = new Dimension(300, 30);
@@ -83,5 +78,35 @@ public class PainelCadastroRendaFixa extends JPanel {
         
         add(Box.createVerticalStrut(15));
         add(btnCadastrar);
+    }
+    
+    private class cadastroListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                double valor = Double.parseDouble(campoValor.getText());
+                int prazo = Integer.parseInt(campoPrazo.getText());
+                double taxa = Double.parseDouble(campoTaxa.getText());
+                String nome = campoOpcao.getText().trim();
+                
+                if (valor <= 0 || prazo <= 0 || taxa <= 0) {
+                throw new IllegalArgumentException("Os valores devem ser positivos.");
+            }
+
+                InvestimentoRendaFixa investimento = new InvestimentoRendaFixa(nome,valor,taxa,prazo);
+                InvestimentoRendaFixaPersistence ip = new InvestimentoRendaFixaPersistence();
+                ip.adicionarSolicitacao(investimento);
+
+                JOptionPane.showMessageDialog(null, "Cadastro de investimento realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Digite apenas números nos campos de valor, taxa e prazo.", "Erro", JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }

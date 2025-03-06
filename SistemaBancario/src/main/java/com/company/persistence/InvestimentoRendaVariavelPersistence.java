@@ -1,80 +1,62 @@
 package com.company.persistence;
 
-import com.company.model.InvestimentoRendaVariavel;
-import com.google.gson.reflect.TypeToken;
-import java.io.File;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import com.company.model.InvestimentoRendaVariavel;//
+import static com.company.persistence.Persistence.DIRECTORY;//
+import java.lang.reflect.Type;//
+import java.util.ArrayList;//
+import java.util.List;//
 import com.google.gson.Gson;
+import java.io.*;//
+import com.google.gson.reflect.TypeToken;//
 
-public class InvestimentoRendaVariavelPersistence implements Persistence<InvestimentoRendaVariavel> {
+public class InvestimentoRendaVariavelPersistence{
 
-    private static final String PATH = DIRECTORY + File.separator + "investimentos_redna_fixa.json";
+    private static final String FILE_PATH = DIRECTORY + File.separator + "investimentos_renda_variavel.json";
+    private static List<InvestimentoRendaVariavel> solicitacoes = new ArrayList<>();
 
-    @Override
-    public void save(List<InvestimentoRendaVariavel> itens) {
-        Gson gson = new Gson();
-        String json = gson.toJson(itens);
-
-        File diretorio = new File(DIRECTORY);
-        if (!diretorio.exists()) {
-            diretorio.mkdirs();
-        }
-
-        Arquivo.salva(PATH, json);
+    // Carrega as transferências do arquivo JSON ao iniciar
+    static {
+        carregarSolicitacoes();
     }
 
-    @Override
-    public List<InvestimentoRendaVariavel> findAll() {
-        Gson gson = new Gson();
-        String json = Arquivo.le(PATH);
+    public static void adicionarSolicitacao(InvestimentoRendaVariavel investimento) {
+        solicitacoes.add(investimento);
+        salvarSolicitacoes();
+    }
 
-        List<InvestimentoRendaVariavel> investimentos = new ArrayList<>();
-        if (!json.trim().equals("")) {
-            Type tipoLista = new TypeToken<List<InvestimentoRendaVariavel>>() {}.getType();
-            investimentos = gson.fromJson(json, tipoLista);
+    public static List<InvestimentoRendaVariavel> getSolicitacoes() {
+        return new ArrayList<>(solicitacoes);
+    }
 
-            if (investimentos == null) {
-                investimentos = new ArrayList<>();
+    public static void removerSolicitacao(InvestimentoRendaVariavel investimento) {
+        solicitacoes.remove(investimento);
+        salvarSolicitacoes();
+    }
+
+    // Salva a lista de transferências em um arquivo JSON
+    private static void salvarSolicitacoes() {  //save
+        try (Writer writer = new FileWriter(FILE_PATH)) {
+            Gson gson = new Gson();
+            gson.toJson(solicitacoes, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Carrega a lista de transferências do arquivo JSON
+    private static void carregarSolicitacoes() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) return;
+
+        try (Reader reader = new FileReader(FILE_PATH)) {
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<InvestimentoRendaVariavel>>() {}.getType();
+            List<InvestimentoRendaVariavel> listaCarregada = gson.fromJson(reader, listType);
+            if (listaCarregada != null) {
+                solicitacoes = listaCarregada;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return investimentos;
-    }
-
-    public List<InvestimentoRendaVariavel> load() {
-        Gson gson = new Gson();
-        File arquivo = new File(PATH);
-
-        if (!arquivo.exists()) {
-            return new ArrayList<>(); // Retorna uma lista vazia se o arquivo não existir
-        }
-
-        String json = Arquivo.le(PATH); // Método para ler o conteúdo do arquivo
-        Type listType = new TypeToken<List<InvestimentoRendaVariavel>>() {}.getType();
-
-        return gson.fromJson(json, listType);
-    }
-
-    @Override
-    public void add(InvestimentoRendaVariavel novoInvestimento) {
-        Gson gson = new Gson();
-        List<InvestimentoRendaVariavel> investimentosExistentes = load(); // Carrega os investimentos já salvos
-
-        if (investimentosExistentes == null) {
-            investimentosExistentes = new ArrayList<>();
-        }
-
-        investimentosExistentes.add(novoInvestimento); // Adiciona o novo investimento
-
-        String json = gson.toJson(investimentosExistentes);
-
-        File diretorio = new File(DIRECTORY);
-        if (!diretorio.exists()) {
-            diretorio.mkdirs();
-        }
-
-        Arquivo.salva(PATH, json); // Salva a lista atualizada
     }
 }
