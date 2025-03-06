@@ -15,7 +15,7 @@ public class PainelApoio extends JPanel {
         
             JLabel labelOperacao = new JLabel("Operacao:");
             labelOperacao.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JTextField campoOperacao = new JTextField("Trasnferencia");
+            JTextField campoOperacao = new JTextField("Tranferencia");
             campoOperacao.setEditable(false);
         
             JLabel labelValor = new JLabel("Valor:");

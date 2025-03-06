@@ -1,17 +1,10 @@
 package com.company.view;
 
 import com.company.controller.CadastrarCliente;
-import com.company.exception.CPFException;
-import com.company.exception.EmailException;
-import com.company.exception.NameException;
-import com.company.model.Cliente;
-import com.company.model.Conta;
-import com.company.model.Email;
-import com.company.model.Endereco;
+import com.company.exception.*;
+import com.company.model.*;
 import com.company.persistence.ClientePersistence;
-import com.company.persistence.ContaPersistence;
 import com.company.view.frames.CadastroClienteFrame;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -58,15 +51,12 @@ public class TelaCadastro {
             Cliente c = new Cliente(getNextId(), name, e, nasc, cpf, em, senha, phone, conta);
 
             ClientePersistence clienteP = new ClientePersistence();
-            ContaPersistence contaP = new ContaPersistence();
-
             clienteP.add(c);
-            contaP.add(conta);
         } catch (EmailException | NameException | CPFException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(null, "Cadastro realizado com succeso.", "Parabéns!", JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(null, "Cadastro realizado com succeso.", "Parabéns!", JOptionPane.INFORMATION_MESSAGE);
         tela.setVisible(false);
     }
 

@@ -3,7 +3,6 @@ package com.company.view.paineis;
 import com.company.model.Cliente;
 import com.company.model.Conta;
 import com.company.persistence.ClientePersistence;
-import com.company.persistence.ContaPersistence;
 import com.company.persistence.Persistence;
 
 import javax.swing.*;

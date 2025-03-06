@@ -1,6 +1,6 @@
 package com.company.main;
 
-import com.company.view.*;
+import com.company.view.TelaLogin;
 
 public class SistemaBancario {
 
