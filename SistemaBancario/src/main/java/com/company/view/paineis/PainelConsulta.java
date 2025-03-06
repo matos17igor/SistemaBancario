@@ -1,6 +1,7 @@
 package com.company.view.paineis;
 
 import com.company.model.Cliente;
+import com.company.view.TelaCliente;
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +11,6 @@ public class PainelConsulta extends JPanel {
 
     public PainelConsulta(Cliente cliente) {
         setLayout(new BorderLayout());
-
         lblSaldo = new JLabel("Saldo atual: R$" + cliente.getConta().getSaldo(), JLabel.CENTER);
         lblSaldo.setFont(new Font("Arial", Font.BOLD, 16));
         add(lblSaldo, BorderLayout.NORTH);

@@ -119,6 +119,8 @@ public class PainelTransferencia extends JPanel {
                     //atualiza interface
                     tela.setCliente(contaOrigem);
                     tela.desenhaPainelSuperior();
+                    tela.desenhaPainelPrincipal();
+                    
 
                     // Salvar todas as mudanças
                     clientePersistence.save(clientes);
