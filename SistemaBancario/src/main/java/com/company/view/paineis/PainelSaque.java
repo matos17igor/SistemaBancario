@@ -36,23 +36,21 @@ public class PainelSaque extends JPanel {
         campoSenha = new JPasswordField();
         btnConfirmar = new JButton("Confirmar");
 
-        configurarComponentes();
-        btnConfirmar.addActionListener(new SaqueListener());
-    }
-
-    private void configurarComponentes() {
-        Dimension campoSize = new Dimension(350, 30);
+        Dimension campoSize = new Dimension(300, 30);
         campoValor.setPreferredSize(campoSize);
         campoValor.setMaximumSize(campoSize);
         campoSenha.setPreferredSize(campoSize);
         campoSenha.setMaximumSize(campoSize);
-
+        
+        Dimension buttonSize = new Dimension(150, 30); 
+        btnConfirmar.setPreferredSize(buttonSize);
         btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        add(new JLabel("Valor do saque:"));
+        btnConfirmar.addActionListener(new SaqueListener());
+        
+        add(labelValor);
         add(campoValor);
         add(Box.createVerticalStrut(10));
-        add(new JLabel("Senha de transferência:"));
+        add(labelSenha);
         add(campoSenha);
         add(Box.createVerticalStrut(20));
         add(btnConfirmar);
@@ -88,21 +86,12 @@ public class PainelSaque extends JPanel {
                     if (!senha.equals(contaOrigem.getConta().getSenhaTransacao())) {
                         throw new PasswordException();
                     }
+
                     Saque sq = new Saque(contaOrigem.getConta(), valor);
                     SaquePersistence sp = new SaquePersistence();
                     sp.adicionarSolicitacao(sq);
-                    contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - valor);
 
-                    //atualiza interface
-                    tela.setCliente(contaOrigem);
-                    tela.desenhaPainelSuperior();
-                    tela.desenhaPainelPrincipal();
-                    
-
-                    // Salvar todas as mudanças
-                    clientePersistence.save(clientes);
-
-                    JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Solicitação de saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SaldoException | PasswordException error) {
                     JOptionPane.showMessageDialog(null, "Erro: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

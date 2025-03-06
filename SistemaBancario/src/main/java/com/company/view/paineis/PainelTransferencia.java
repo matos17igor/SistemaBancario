@@ -100,7 +100,7 @@ public class PainelTransferencia extends JPanel {
                 if (contaDestino == null || contaOrigem == null) {
                     JOptionPane.showMessageDialog(null, "Conta de destino ou origem não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
-                } else if (contaDestino == contaOrigem){
+                } else if (contaDestino == contaOrigem) {
                     JOptionPane.showMessageDialog(null, "A conta de destino não pode ser igual a conta de origem.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -116,19 +116,8 @@ public class PainelTransferencia extends JPanel {
                     Transferencia tr = new Transferencia(contaOrigem.getConta(), valor, contaDestino.getConta());
                     TransferenciaPersistence tp = new TransferenciaPersistence();
                     tp.adicionarSolicitacao(tr);
-                    contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - valor);
-                    contaDestino.getConta().setSaldo(contaDestino.getConta().getSaldo() + valor);
 
-                    //atualiza interface
-                    tela.setCliente(contaOrigem);
-                    tela.desenhaPainelSuperior();
-                    tela.desenhaPainelPrincipal();
-                    
-
-                    // Salvar todas as mudanças
-                    clientePersistence.save(clientes);
-
-                    JOptionPane.showMessageDialog(null, "Transferência realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Solicitação de transferência realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SaldoException | PasswordException error) {
                     JOptionPane.showMessageDialog(null, "Erro: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

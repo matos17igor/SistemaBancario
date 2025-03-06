@@ -1,7 +1,10 @@
 package com.company.view.paineis;
 
+import com.company.model.Cliente;
 import com.company.model.Saque;
 import com.company.model.Transferencia;
+import com.company.persistence.ClientePersistence;
+import com.company.persistence.Persistence;
 import com.company.persistence.SaquePersistence;
 import com.company.persistence.TransferenciaPersistence;
 
@@ -36,7 +39,7 @@ public class PainelSaqueCaixa extends JPanel {
         scrollPane.setPreferredSize(comboSize);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
-        btnConfirmar.addActionListener(new AprovarTransferenciaListener());
+        btnConfirmar.addActionListener(new AprovarSaqueListener());
         btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnConfirmar.setPreferredSize(new Dimension(150, 30));
 
@@ -56,7 +59,7 @@ public class PainelSaqueCaixa extends JPanel {
         }
     }
 
-    private class AprovarTransferenciaListener implements ActionListener {
+    private class AprovarSaqueListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = comboSolicitacoes.getSelectedIndex();
@@ -65,19 +68,35 @@ public class PainelSaqueCaixa extends JPanel {
                 return;
             }
 
-            Saque saques = SaquePersistence.getSolicitacoes().get(index);
+            Saque saque = SaquePersistence.getSolicitacoes().get(index);
             
             // Solicita a senha do cliente
             String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
 
-            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(saques.getOrigem().getSenhaTransacao())) {
+            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(saque.getOrigem().getSenhaTransacao())) {
                 JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // Buscar conta de destino no sistema
+                Persistence<Cliente> clientePersistence = new ClientePersistence();
+                List<Cliente> clientes = clientePersistence.findAll();
+
+                Cliente clienteOrigem = null;
+
+                for (Cliente c : clientes) {
+                    if (c.getConta().getNumero().equals(saque.getOrigem().getNumero())) {
+                        clienteOrigem = c;  // Encontramos o cliente de origem dentro da lista
+                    }
+                }
+            
             // Aprovação da transferência pelo caixa
+                clienteOrigem.getConta().setSaldo(clienteOrigem.getConta().getSaldo() - saque.getValor());
+                
                 JOptionPane.showMessageDialog(null, "Saque aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                SaquePersistence.removerSolicitacao(saques);
+                SaquePersistence.removerSolicitacao(saque);
+                clientePersistence.save(clientes);
+
                 carregarSolicitacoes();
         }
     }

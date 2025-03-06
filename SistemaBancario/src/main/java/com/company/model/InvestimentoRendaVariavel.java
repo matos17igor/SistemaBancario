@@ -15,4 +15,7 @@ public class InvestimentoRendaVariavel extends Investimento {
         return valorInvestido * taxaRendimento * meses * fatorRisco;
     }
     
+    public double getRisco() {
+        return percentualRisco;
+    }
 }
