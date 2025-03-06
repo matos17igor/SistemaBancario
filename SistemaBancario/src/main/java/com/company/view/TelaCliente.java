@@ -112,8 +112,8 @@ public class TelaCliente {
         btnSaque.setMaximumSize(btnSize);
         btnSaque.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnLogout.setPreferredSize(btnSize);
-        btnLogout.setMaximumSize(btnSize);
+        btnLogout.setPreferredSize(new Dimension(110, 23));
+        btnLogout.setMaximumSize(new Dimension(110, 23));
         btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         painelBotoes.add(Box.createVerticalStrut(10));
@@ -128,6 +128,7 @@ public class TelaCliente {
         painelBotoes.add(btnSolicitacao);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnSaque);
+        painelBotoes.add(Box.createVerticalStrut(30));
         painelBotoes.add(btnLogout);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));

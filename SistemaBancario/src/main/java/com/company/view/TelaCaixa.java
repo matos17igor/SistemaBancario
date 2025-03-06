@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class TelaCaixa {
-
+    
     private JFrame tela;
     private JPanel painelBotoes;
     private JPanel painelSuperior;
@@ -82,8 +82,8 @@ public class TelaCaixa {
         btnTransferencia.setMaximumSize(btnSize);
         btnTransferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnLogout.setPreferredSize(btnSize);
-        btnLogout.setMaximumSize(btnSize);
+        btnLogout.setPreferredSize(new Dimension(110, 23));
+        btnLogout.setMaximumSize(new Dimension(110, 23));
         btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         painelBotoes.add(Box.createVerticalStrut(10));
@@ -92,9 +92,8 @@ public class TelaCaixa {
         painelBotoes.add(btnDeposito);
         painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.add(btnTransferencia);
-        painelBotoes.add(Box.createVerticalStrut(10));
+        painelBotoes.add(Box.createVerticalStrut(50));
         painelBotoes.add(btnLogout);
-        painelBotoes.add(Box.createVerticalStrut(10));
         painelBotoes.setBorder(new EmptyBorder(0, 100, 0, 0));
 
         tela.add(painelBotoes, BorderLayout.WEST);

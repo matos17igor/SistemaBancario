@@ -89,24 +89,13 @@ public class PainelSaque extends JPanel {
                     if (!senha.equals(contaOrigem.getConta().getSenhaTransacao())) {
                         throw new PasswordException();
                     }
-//                  Transferencia tr = new Transferencia(contaOrigem.getConta(), valor, contaDestino.getConta());
-//                  TransferenciaPersistence tp = new TransferenciaPersistence();
-//                  tp.adicionarSolicitacao(tr);
+                    
+                    // Solicita o saque
                     Saque sq = new Saque(contaOrigem.getConta(), valor);
                     SaquePersistence sp = new SaquePersistence();
                     sp.adicionarSolicitacao(sq);
-                    contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - valor);
 
-                    //atualiza interface
-                    tela.setCliente(contaOrigem);
-                    tela.desenhaPainelSuperior();
-                    tela.desenhaPainelPrincipal();
-                    
-
-                    // Salvar todas as mudanças
-                    clientePersistence.save(clientes);
-
-                    JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Solicitação de saque realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SaldoException | PasswordException error) {
                     JOptionPane.showMessageDialog(null, "Erro: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
