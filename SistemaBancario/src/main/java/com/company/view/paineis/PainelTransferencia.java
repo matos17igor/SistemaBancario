@@ -100,6 +100,9 @@ public class PainelTransferencia extends JPanel {
                 if (contaDestino == null || contaOrigem == null) {
                     JOptionPane.showMessageDialog(null, "Conta de destino ou origem não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
+                } else if (contaDestino == contaOrigem){
+                    JOptionPane.showMessageDialog(null, "A conta de destino não pode ser igual a conta de origem.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
 
                 // Realizar a transferência

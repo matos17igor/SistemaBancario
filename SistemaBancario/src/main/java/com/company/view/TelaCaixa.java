@@ -52,7 +52,7 @@ public class TelaCaixa {
         painelSuperior = new JPanel();
         painelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
 
-        mensagem = new JLabel("Bem-vindo, " + caixa.getName());
+        mensagem = new JLabel("Bem-vindo " + caixa.getName());
         mensagem.setFont(new Font("Arial", Font.BOLD, 18));
 
         painelSuperior.add(mensagem);
@@ -110,7 +110,7 @@ public class TelaCaixa {
         painelPrincipal = new JPanel(cardLayout);
 
         painelPrincipal.add(new JPanel(), "vazio");
-        painelPrincipal.add(new PainelSaque(), "saque");
+        painelPrincipal.add(new PainelSaqueCaixa(), "saque");
         painelPrincipal.add(new PainelDeposito(), "deposito");
         painelPrincipal.add(new PainelTransferenciaCaixa(), "transferencia");
         painelPrincipal.setBorder(new EmptyBorder(0, 0, 0, 70));

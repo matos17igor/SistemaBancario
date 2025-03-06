@@ -1,6 +1,8 @@
 package com.company.view.paineis;
 
+import com.company.model.Saque;
 import com.company.model.Transferencia;
+import com.company.persistence.SaquePersistence;
 import com.company.persistence.TransferenciaPersistence;
 
 import javax.swing.*;
@@ -9,16 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class PainelTransferenciaCaixa extends JPanel {
+public class PainelSaqueCaixa extends JPanel {
     private JComboBox<String> comboSolicitacoes;
     private JButton btnConfirmar;
     
-    public PainelTransferenciaCaixa() {
+    public PainelSaqueCaixa() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         comboSolicitacoes = new JComboBox<>();
-        btnConfirmar = new JButton("Aprovar Transferência");
-        JLabel labelSolicitacoes = new JLabel("Solicitações Pendentes:");
+        btnConfirmar = new JButton("Aprovar Saque");
+        JLabel labelSolicitacoes = new JLabel("Saques Pendentes:");
         labelSolicitacoes.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         carregarSolicitacoes();
@@ -47,11 +49,10 @@ public class PainelTransferenciaCaixa extends JPanel {
 
     private void carregarSolicitacoes() {
         comboSolicitacoes.removeAllItems();
-        List<Transferencia> solicitacoes = TransferenciaPersistence.getSolicitacoes();
-        for (Transferencia t : solicitacoes) {
-            comboSolicitacoes.addItem("Origem: " + t.getOrigem().getNumero() +
-                                      " | Destino: " + t.getDestino().getNumero() + 
-                                      " | Valor: R$" + t.getValor());
+        List<Saque> solicitacoes = SaquePersistence.getSolicitacoes();
+        for (Saque s : solicitacoes) {
+            comboSolicitacoes.addItem("Origem: " + s.getOrigem().getNumero() +  
+                                      " | Valor: R$" + s.getValor());
         }
     }
 
@@ -60,23 +61,23 @@ public class PainelTransferenciaCaixa extends JPanel {
         public void actionPerformed(ActionEvent e) {
             int index = comboSolicitacoes.getSelectedIndex();
             if (index == -1) {
-                JOptionPane.showMessageDialog(null, "Selecione uma solicitação para aprovar.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Selecione uma solicitação de saque para aprovar.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Transferencia transferencia = TransferenciaPersistence.getSolicitacoes().get(index);
+            Saque saques = SaquePersistence.getSolicitacoes().get(index);
             
             // Solicita a senha do cliente
             String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
 
-            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(transferencia.getOrigem().getSenhaTransacao())) {
+            if (senhaDigitada.isEmpty() || !senhaDigitada.equals(saques.getOrigem().getSenhaTransacao())) {
                 JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // Aprovação da transferência pelo caixa
-                JOptionPane.showMessageDialog(null, "Transferência aprovada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                TransferenciaPersistence.removerSolicitacao(transferencia);
+                JOptionPane.showMessageDialog(null, "Saque aprovada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                SaquePersistence.removerSolicitacao(saques);
                 carregarSolicitacoes();
         }
     }
