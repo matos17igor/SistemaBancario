@@ -7,10 +7,8 @@ package com.company.view.paineis;
 
 import com.company.model.InvestimentoRendaVariavel;
 import com.company.persistence.InvestimentoRendaVariavelPersistence;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import java.awt.*;
 

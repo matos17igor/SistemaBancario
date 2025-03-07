@@ -7,7 +7,6 @@ package com.company.persistence;
 
 import com.company.model.Caixa;
 import com.google.gson.reflect.TypeToken;
-import com.company.model.Usuario;
 import static com.company.persistence.Persistence.DIRECTORY;
 
 import java.io.File;

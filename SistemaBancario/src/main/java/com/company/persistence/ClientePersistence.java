@@ -7,8 +7,6 @@ package com.company.persistence;
 
 import com.company.model.Cliente;
 import com.google.gson.reflect.TypeToken;
-import com.company.model.Usuario;
-
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;

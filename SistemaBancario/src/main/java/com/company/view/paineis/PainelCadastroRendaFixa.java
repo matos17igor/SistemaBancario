@@ -7,11 +7,6 @@ package com.company.view.paineis;
 
 import com.company.model.InvestimentoRendaFixa;
 import com.company.persistence.InvestimentoRendaFixaPersistence;
-
-import com.company.model.Restricoes;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +18,6 @@ public class PainelCadastroRendaFixa extends JPanel {
     private JTextField campoValor;
     private JTextField campoPrazo;
     private JTextField campoTaxa;
-    private final Map<String, Restricoes> restricoesMap = new HashMap<>();
     
     public PainelCadastroRendaFixa(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

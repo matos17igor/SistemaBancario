@@ -59,8 +59,10 @@ public class PainelSaqueCaixa extends JPanel {
         comboSolicitacoes.removeAllItems();
         List<Saque> solicitacoes = SaquePersistence.getSolicitacoes();
         for (Saque s : solicitacoes) {
-            comboSolicitacoes.addItem("Origem: " + s.getOrigem().getNumero()
-                    + " | Valor: R$" + s.getValor());
+            if (s.getValor() < 1000000) {
+                comboSolicitacoes.addItem("Origem: " + s.getOrigem().getNumero()
+                        + " | Valor: R$" + s.getValor());
+            }
         }
     }
 
@@ -97,8 +99,6 @@ public class PainelSaqueCaixa extends JPanel {
             }
             if (senhaDigitada.isEmpty() || !senhaDigitada.equals(saque.getOrigem().getSenhaTransacao())) {
                 JOptionPane.showMessageDialog(null, "Senha inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
-                SaquePersistence.removerSolicitacao(saque);
-                clientePersistence.save(clientes);
                 return;
             }
 
@@ -108,7 +108,7 @@ public class PainelSaqueCaixa extends JPanel {
             // Adiciona a movimentacao
             Movimentacao movimentacao = new Movimentacao(saque.getValor(), "Saque", clienteOrigem.getConta().getTitular());
             clienteOrigem.getConta().setMovimentacoes(movimentacao);
-            
+
             JOptionPane.showMessageDialog(null, "Saque aprovado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             SaquePersistence.removerSolicitacao(saque);
             clientePersistence.save(clientes);

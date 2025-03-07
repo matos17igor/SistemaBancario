@@ -2,7 +2,7 @@
 Igor Rocha Matos - 202335041
 João Paulo Macedo Fernandes - 202335009
 Pedro Muniz Fagundes Netto Lau - 202376029
-*/
+ */
 package com.company.view.paineis;
 
 import com.company.model.Cliente;
@@ -59,9 +59,11 @@ public class PainelTransferenciaCaixa extends JPanel {
         comboSolicitacoes.removeAllItems();
         List<Transferencia> solicitacoes = TransferenciaPersistence.getSolicitacoes();
         for (Transferencia t : solicitacoes) {
-            comboSolicitacoes.addItem("Origem: " + t.getOrigem().getNumero()
-                    + " | Destino: " + t.getDestino().getNumero()
-                    + " | Valor: R$" + t.getValor());
+            if (t.getValor() < 1000000) {
+                comboSolicitacoes.addItem("Origem: " + t.getOrigem().getNumero()
+                        + " | Destino: " + t.getDestino().getNumero()
+                        + " | Valor: R$" + t.getValor());
+            }
         }
     }
 
@@ -86,30 +88,30 @@ public class PainelTransferenciaCaixa extends JPanel {
             }
 
             // Buscar conta de destino no sistema
-                Persistence<Cliente> clientePersistence = new ClientePersistence();
-                List<Cliente> clientes = clientePersistence.findAll();
+            Persistence<Cliente> clientePersistence = new ClientePersistence();
+            List<Cliente> clientes = clientePersistence.findAll();
 
-                Cliente contaDestino = null;
-                Cliente contaOrigem = null;
+            Cliente contaDestino = null;
+            Cliente contaOrigem = null;
 
-                for (Cliente c : clientes) {
-                    if (c.getConta().getNumero().equals(transferencia.getDestino().getNumero())) {
-                        contaDestino = c;
-                    }
-                    if (c.getConta().getNumero().equals(transferencia.getOrigem().getNumero())) {
-                        contaOrigem = c;  // Encontramos o cliente de origem dentro da lista
-                    }
+            for (Cliente c : clientes) {
+                if (c.getConta().getNumero().equals(transferencia.getDestino().getNumero())) {
+                    contaDestino = c;
                 }
-            
+                if (c.getConta().getNumero().equals(transferencia.getOrigem().getNumero())) {
+                    contaOrigem = c;  // Encontramos o cliente de origem dentro da lista
+                }
+            }
+
             // Aprovação da transferência pelo caixa
             contaOrigem.getConta().setSaldo(contaOrigem.getConta().getSaldo() - transferencia.getValor());
             contaDestino.getConta().setSaldo(contaDestino.getConta().getSaldo() + transferencia.getValor());
-            
+
             // Adiciona a movimentacao
             Movimentacao movimentacao = new Movimentacao(transferencia.getValor(), "Transferência", contaOrigem.getConta().getTitular());
             contaOrigem.getConta().setMovimentacoes(movimentacao);
             contaDestino.getConta().setMovimentacoes(movimentacao);
-            
+
             JOptionPane.showMessageDialog(null, "Transferência aprovada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             TransferenciaPersistence.removerSolicitacao(transferencia);
             clientePersistence.save(clientes);

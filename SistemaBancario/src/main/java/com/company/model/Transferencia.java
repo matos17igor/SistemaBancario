@@ -5,8 +5,6 @@ Pedro Muniz Fagundes Netto Lau - 202376029
 */
 package com.company.model;
 
-import java.util.Date;
-
 public class Transferencia extends Operacao{
     
     private Conta destino;

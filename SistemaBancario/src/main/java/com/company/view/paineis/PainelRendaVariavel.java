@@ -7,7 +7,11 @@ package com.company.view.paineis;
 
 import com.company.model.Cliente;
 import com.company.model.InvestimentoRendaVariavel;
+import com.company.model.Movimentacao;
+import com.company.persistence.ClientePersistence;
 import com.company.persistence.InvestimentoRendaVariavelPersistence;
+import com.company.persistence.Persistence;
+import com.company.view.TelaCliente;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,10 +27,12 @@ public class PainelRendaVariavel extends JPanel {
     private static JTextField campoRisco;
     private static JTextField campoValor;
     private Cliente cliente;
+    private TelaCliente tela;
 
-    public PainelRendaVariavel(Cliente cliente) {
+    public PainelRendaVariavel(Cliente cliente, TelaCliente tela) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.cliente = cliente;
+        this.tela = tela;
         comboInvestimentos = new JComboBox<>();
         btnConfirmar = new JButton("Investir");
         campoValorMin = new JTextField();
@@ -127,13 +133,12 @@ public class PainelRendaVariavel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = comboInvestimentos.getSelectedIndex();
+            double valor = Double.parseDouble(campoValor.getText());
+            
             if (index == -1) {
                 JOptionPane.showMessageDialog(null, "Selecione um investimento.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            InvestimentoRendaVariavelPersistence cp = new InvestimentoRendaVariavelPersistence();
-            InvestimentoRendaVariavel investimento = cp.getSolicitacoes().get(index);
 
             // Solicita a senha do cliente
             String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do cliente para confirmar:");
@@ -143,6 +148,40 @@ public class PainelRendaVariavel extends JPanel {
                 return;
             }
 
+            InvestimentoRendaVariavelPersistence cp = new InvestimentoRendaVariavelPersistence();
+            InvestimentoRendaVariavel investimento = cp.getSolicitacoes().get(index);
+            
+            if(valor < investimento.getValorMinimo()){
+                JOptionPane.showMessageDialog(null, "Valor mínimo é de R$" + investimento.getValorMinimo(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(valor > cliente.getConta().getSaldo()){
+                JOptionPane.showMessageDialog(null, "Saldo insuficiente!" + investimento.getValorMinimo(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            Persistence<Cliente> clientePersistence = new ClientePersistence();
+            List<Cliente> clientes = clientePersistence.findAll();
+
+            Cliente cl = null;
+            for (Cliente c : clientes) {
+                if (c.getId() == (cliente.getId())) {
+                    cl = c;
+                    break;
+                }
+            }
+
+            //Subtrai o valor do investimento
+            cl.getConta().setSaldo(cl.getConta().getSaldo() - valor);
+
+            // Adiciona a movimentacao
+            Movimentacao movimentacao = new Movimentacao(valor, "Investimento", cliente.getName());
+            cl.getConta().setMovimentacoes(movimentacao);
+            clientePersistence.save(clientes);
+            
+            tela.setCliente(cl);
+            tela.desenhaPainelSuperior();
+            
             // Aprovação da transferência pelo caixa
             JOptionPane.showMessageDialog(null, "Investimento realizado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             carregarSolicitacoes();
