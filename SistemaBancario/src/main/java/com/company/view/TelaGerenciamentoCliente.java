@@ -2,7 +2,7 @@
 Igor Rocha Matos - 202335041
 João Paulo Macedo Fernandes - 202335009
 Pedro Muniz Fagundes Netto Lau - 202376029
-*/
+ */
 package com.company.view;
 
 import com.company.controller.AdicionarCliente;
@@ -22,7 +22,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
 
 public class TelaGerenciamentoCliente {
 
@@ -172,7 +172,8 @@ public class TelaGerenciamentoCliente {
 
         DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
         try {
-            model.addElement(new Cliente(getNextId(), tfName.getText(), new Endereco(tfRua.getText(), tfBairro.getText(), tfNum.getText(), tfCEP.getText()), tfNasc.getText(), tfCPF.getText(), new Email(tfEmail.getText()), new String(tfSenha.getPassword()), tfPhone.getText(), new Conta(UUID.randomUUID().toString(), 0, new String(tfSenha.getPassword()), tfName.getText())));
+            Random random = new Random();
+            model.addElement(new Cliente(getNextId(), tfName.getText(), new Endereco(tfRua.getText(), tfBairro.getText(), tfNum.getText(), tfCEP.getText()), tfNasc.getText(), tfCPF.getText(), new Email(tfEmail.getText()), new String(tfSenha.getPassword()), tfPhone.getText(), new Conta(String.valueOf(100000 + random.nextInt(900000)), 0, new String(tfSenha.getPassword()), tfName.getText())));
         } catch (EmailException | NameException | CPFException e) {
             JOptionPane.showMessageDialog(tela, "Erro: " + e.getMessage());
         }
