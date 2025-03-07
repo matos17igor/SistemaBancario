@@ -32,6 +32,7 @@ public class AdminFrame extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnGerentes = new javax.swing.JButton();
         btnCaixas = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,16 +52,23 @@ public class AdminFrame extends javax.swing.JFrame {
 
         btnCaixas.setText("Gerenciar Caixas");
 
+        btnLogout.setText("Sair");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(239, 239, 239)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGerentes, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCaixas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGerentes, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(btnCaixas, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(261, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -72,7 +80,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addComponent(btnGerentes)
                 .addGap(51, 51, 51)
                 .addComponent(btnCaixas)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -133,9 +143,15 @@ public class AdminFrame extends javax.swing.JFrame {
         return btnGerentes;
     }
 
+    public JButton getBtnLogout() {
+        return btnLogout;
+    }
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixas;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnGerentes;
+    private javax.swing.JButton btnLogout;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,7 @@ public class TelaAdmin {
     private JButton btnClientes;
     private JButton btnGerentes;
     private JButton btnCaixas;
+    private JButton btnLogout;
 
     public void desenha() {
         this.tela = new AdminFrame();
@@ -24,10 +25,12 @@ public class TelaAdmin {
         btnClientes = tela.getBtnClientes();
         btnGerentes = tela.getBtnGerentes();
         btnCaixas = tela.getBtnCaixas();
+        btnLogout = tela.getBtnLogout();
 
         btnClientes.addActionListener(e -> desenhaMenuCliente());
         btnGerentes.addActionListener(e -> desenhaMenuGerente());
         btnCaixas.addActionListener(e -> desenhaMenuCaixa());
+        btnLogout.addActionListener(e -> tela.setVisible(false));
     }
 
     public void desenhaMenuCliente() {

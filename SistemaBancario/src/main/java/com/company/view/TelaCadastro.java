@@ -29,7 +29,9 @@ public class TelaCadastro {
         tela.setVisible(true);
 
         JButton btn = tela.getBtnSubmit();
+        JButton btnVoltar = tela.getBtnVoltar();
         btn.addActionListener(new CadastrarCliente(this));
+        btnVoltar.addActionListener(e -> tela.setVisible(false));
     }
 
     public void cadastrarCliente() {
