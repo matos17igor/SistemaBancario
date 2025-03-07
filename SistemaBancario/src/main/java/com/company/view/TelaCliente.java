@@ -154,8 +154,8 @@ public class TelaCliente {
         painelPrincipal.add(new JPanel(), "vazio");
         painelPrincipal.add(new PainelTransferencia(getCliente(), this), "transferencia");
         painelPrincipal.add(new PainelConsulta(getCliente()), "consulta");
-        painelPrincipal.add(new PainelRendaFixa(cliente), "rendaFixa");
-        painelPrincipal.add(new PainelRendaVariavel(cliente), "rendaVariavel");
+        painelPrincipal.add(new PainelRendaFixa(cliente, this), "rendaFixa");
+        painelPrincipal.add(new PainelRendaVariavel(cliente, this), "rendaVariavel");
         painelPrincipal.add(new PainelSolicitacao(cliente), "solicitacao");
         painelPrincipal.add(new PainelSaque(cliente, this), "saque");
         painelPrincipal.setBorder(new EmptyBorder(0, 0, 0, 70));
