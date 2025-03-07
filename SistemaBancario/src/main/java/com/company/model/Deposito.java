@@ -14,4 +14,9 @@ public class Deposito extends Operacao{
         super(autor, valor);
         this.destino = destino;
     }
+
+    public Conta getDestino() {
+        return destino;
+    }
+    
 }
