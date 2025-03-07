@@ -1,6 +1,5 @@
 package com.company.view.paineis;
 
-import com.company.exception.SaldoException;
 import com.company.model.Cliente;
 import com.company.model.Movimentacao;
 import com.company.model.Saque;

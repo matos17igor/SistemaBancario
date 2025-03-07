@@ -1,16 +1,14 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+Igor Rocha Matos - 202335041
+João Paulo Macedo Fernandes - 202335009
+Pedro Muniz Fagundes Netto Lau - 202376029
+*/
 package com.company.view.frames;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Joao Paulo
- */
+
 public class LoginFrame extends javax.swing.JFrame {
 
     /**
