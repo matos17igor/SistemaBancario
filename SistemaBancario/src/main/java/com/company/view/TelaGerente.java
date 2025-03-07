@@ -1,3 +1,8 @@
+/*
+Igor Rocha Matos - 202335041
+João Paulo Macedo Fernandes - 202335009
+Pedro Muniz Fagundes Netto Lau - 202376029
+*/
 package com.company.view;
 
 import com.company.model.Gerente;
@@ -21,6 +26,7 @@ public class TelaGerente {
     private JButton btnCadastroRendaFixa;
     private JButton btnCadastroRendaVariavel;
     private JButton btnAvaliacao;
+    private JButton btnLogout;
     private JLabel mensagem;
     
     private Gerente gerente;
@@ -70,6 +76,7 @@ public class TelaGerente {
         btnCadastroRendaFixa = new JButton("Cadastro de Investimentos em Renda Fixa");       
         btnCadastroRendaVariavel = new JButton("Cadastro de Investimentos em Renda Variável");
         btnAvaliacao = new JButton("Avaliação de Crédito");
+        btnLogout = new JButton("Sair");
         
         Dimension btnSize = new Dimension(300, 50);
         
@@ -89,7 +96,9 @@ public class TelaGerente {
         btnAvaliacao.setMaximumSize(btnSize); 
         btnAvaliacao.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        
+        btnLogout.setPreferredSize(new Dimension(110, 23));
+        btnLogout.setMaximumSize(new Dimension(110, 23));
+        btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         painelBotoes.add(Box.createVerticalStrut(50));  //cria um espaço fixo vertical entre componentes em um layout
         painelBotoes.add(btnApoio);
@@ -103,6 +112,9 @@ public class TelaGerente {
         painelBotoes.add(Box.createVerticalStrut(15));
         painelBotoes.add(btnAvaliacao);
         
+        painelBotoes.add(Box.createVerticalStrut(30));
+        painelBotoes.add(btnLogout);
+        
         painelBotoes.setBorder(new EmptyBorder(0, 60, 0, 0)); //setBorder: utilizado para definir a borda de um componente em Java, EmptyBorder: usado para adicionar espaçamento interno (margem) dentro do componente
         
         tela.add(painelBotoes, BorderLayout.WEST);
@@ -111,6 +123,7 @@ public class TelaGerente {
         btnCadastroRendaFixa.addActionListener(e -> mostrarPainel("cadastroRendaFixa"));
         btnCadastroRendaVariavel.addActionListener(e -> mostrarPainel("cadastroRendaVariável"));
         btnAvaliacao.addActionListener(e -> mostrarPainel("avaliacao"));
+        btnLogout.addActionListener(e -> tela.setVisible(false));
     }
     
     private void desenhaPainelPrincipal() {

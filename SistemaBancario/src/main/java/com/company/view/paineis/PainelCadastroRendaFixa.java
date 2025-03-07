@@ -1,3 +1,8 @@
+/*
+Igor Rocha Matos - 202335041
+João Paulo Macedo Fernandes - 202335009
+Pedro Muniz Fagundes Netto Lau - 202376029
+*/
 package com.company.view.paineis;
 
 import com.company.model.InvestimentoRendaFixa;
@@ -30,10 +35,7 @@ public class PainelCadastroRendaFixa extends JPanel {
         campoOpcao.addItem("LCI");
         campoOpcao.addItem("LCA");
         campoOpcao.addItem("Tesouro Direto");
-        
-        
-        
-        
+
         
         JLabel labelValor = new JLabel("Valor Mínimo a Investir:");
         labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -98,24 +100,7 @@ public class PainelCadastroRendaFixa extends JPanel {
                 int prazo = Integer.parseInt(campoPrazo.getText());
                 double taxa = Double.parseDouble(campoTaxa.getText());
                 String opcaoSelecionada = (String) campoOpcao.getSelectedItem();
-                
-//                restricoesMap.put(opcaoSelecionada, new Restricoes(valor, prazo, taxa));
-//                restricoesMap.put(opcaoSelecionada, new Restricoes(valor, prazo, taxa));
-//                restricoesMap.put(opcaoSelecionada, new Restricoes(valor, prazo, taxa));
-//                restricoesMap.put(opcaoSelecionada, new Restricoes(valor, prazo, taxa));
-                
-                // Pegar as restrições para a opção selecionada
-                //Restricoes restricoes = restricoesMap.get(opcaoSelecionada);
-                
-//                if (restricoes == null) {
-//                    throw new IllegalArgumentException("Opção de investimento inválida.");
-//                }
-//                
-//                
-//                // Validar os valores
-//                if (!restricoes.validar(valor, prazo, taxa)) {
-//                    throw new IllegalArgumentException(restricoes.getMensagemErro(valor, prazo, taxa));
-//                }
+               
 
                 InvestimentoRendaFixa investimento = new InvestimentoRendaFixa(opcaoSelecionada,valor,taxa,prazo);
                 InvestimentoRendaFixaPersistence ip = new InvestimentoRendaFixaPersistence();

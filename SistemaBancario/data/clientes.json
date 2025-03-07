@@ -1,25 +1,10 @@
 [{
         "conta": {
             "numero": "819160",
-            "saldo": 700.0,
+            "saldo": 10000.0,
             "senhaTransacao": "12345678",
             "titular": "Igor",
-            "movimentacoes": [{
-                    "data": "Mar 6, 2025, 8:48:05 PM",
-                    "valor": 1000.0,
-                    "descricao": "Deposito",
-                    "origem": "Igor"
-                }, {
-                    "data": "Mar 6, 2025, 8:59:36 PM",
-                    "valor": 200.0,
-                    "descricao": "Investimento",
-                    "origem": "Igor"
-                }, {
-                    "data": "Mar 6, 2025, 9:02:10 PM",
-                    "valor": 100.0,
-                    "descricao": "Investimento",
-                    "origem": "Igor"
-                }]
+            "movimentacoes": []
         },
         "id": 1,
         "nome": "Igor",
@@ -42,7 +27,7 @@
     }, {
         "conta": {
             "numero": "369613",
-            "saldo": 0.0,
+            "saldo": 10000.0,
             "senhaTransacao": "12345678",
             "titular": "Joao",
             "movimentacoes": []
