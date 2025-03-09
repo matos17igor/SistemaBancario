@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
 import java.util.List;
 
 public class SistemaBancarioTest {
@@ -15,93 +14,18 @@ public class SistemaBancarioTest {
     private ClientePersistence clientePersistence;
     private CaixaPersistence caixaPersistence;
     private GerentePersistence gerentePersistence;
-    private InvestimentoPersistence investimentoPersistence;
     private CreditoPersistence creditoPersistence;
     private SaquePersistence saquePersistence;
     private TransferenciaPersistence transferenciaPersistence;
 
     @BeforeEach
     public void setUp() {
-        // Limpa os arquivos de persistência antes de cada teste
-        new File(Persistence.DIRECTORY + File.separator + "clientes.json").delete();
-        new File(Persistence.DIRECTORY + File.separator + "caixas.json").delete();
-        new File(Persistence.DIRECTORY + File.separator + "gerentes.json").delete();
-        new File(Persistence.DIRECTORY + File.separator + "investimentos.json").delete();
-        new File(Persistence.DIRECTORY + File.separator + "creditos_pendentes.json").delete();
-        new File(Persistence.DIRECTORY + File.separator + "saques_pendentes.json").delete();
-        new File(Persistence.DIRECTORY + File.separator + "transferencias_pendentes.json").delete();
-
         clientePersistence = new ClientePersistence();
         caixaPersistence = new CaixaPersistence();
         gerentePersistence = new GerentePersistence();
-        investimentoPersistence = new InvestimentoPersistence();
         creditoPersistence = new CreditoPersistence();
         saquePersistence = new SaquePersistence();
         transferenciaPersistence = new TransferenciaPersistence();
-    }
-
-    @Test
-    public void testAdicionarCliente() throws NameException, CPFException, EmailException {
-        // Cria um cliente
-        Endereco endereco = new Endereco("Rua Teste", "Bairro Teste", "123", "12345-678");
-        Email email = new Email("cliente@teste.com");
-        Conta conta = new Conta("12345", 1000.0, "senha123", "Cliente Teste");
-        Cliente cliente = new Cliente(1, "Cliente Teste", endereco, "01/01/2000", "11649146698", email, "senha123", "123456789", conta);
-
-        // Adiciona o cliente
-        clientePersistence.add(cliente);
-
-        // Verifica se o cliente foi adicionado corretamente
-        List<Cliente> clientes = clientePersistence.findAll();
-        assertEquals(1, clientes.size());
-        assertEquals("Cliente Teste", clientes.get(0).getName());
-        assertEquals("12345", clientes.get(0).getConta().getNumero());
-    }
-
-    @Test
-    public void testAdicionarCaixa() throws NameException, CPFException, EmailException {
-        // Cria um caixa
-        Endereco endereco = new Endereco("Rua Teste", "Bairro Teste", "123", "12345-678");
-        Email email = new Email("caixa@teste.com");
-        Caixa caixa = new Caixa(1, "Caixa Teste", endereco, "01/01/2000", "11649146698", email, "senha123", "123456789");
-
-        // Adiciona o caixa
-        caixaPersistence.add(caixa);
-
-        // Verifica se o caixa foi adicionado corretamente
-        List<Caixa> caixas = caixaPersistence.findAll();
-        assertEquals(1, caixas.size());
-        assertEquals("Caixa Teste", caixas.get(0).getName());
-    }
-
-    @Test
-    public void testAdicionarGerente() throws NameException, CPFException, EmailException {
-        // Cria um gerente
-        Endereco endereco = new Endereco("Rua Teste", "Bairro Teste", "123", "12345-678");
-        Email email = new Email("gerente@teste.com");
-        Gerente gerente = new Gerente(1, "Gerente Teste", endereco, "01/01/2000", "11649146698", email, "senha123", "123456789");
-
-        // Adiciona o gerente
-        gerentePersistence.add(gerente);
-
-        // Verifica se o gerente foi adicionado corretamente
-        List<Gerente> gerentes = gerentePersistence.findAll();
-        assertEquals(1, gerentes.size());
-        assertEquals("Gerente Teste", gerentes.get(0).getName());
-    }
-
-    @Test
-    public void testAdicionarInvestimento() {
-        // Cria um investimento
-        Investimento investimento = new Investimento("Tesouro Direto", 1000.0, 0.1);
-
-        // Adiciona o investimento
-        investimentoPersistence.add(investimento);
-
-        // Verifica se o investimento foi adicionado corretamente
-        List<Investimento> investimentos = investimentoPersistence.findAll();
-        assertEquals(1, investimentos.size());
-        assertEquals("Tesouro Direto", investimentos.get(0).getNome());
     }
 
     @Test

@@ -1,1 +1,53 @@
-[{"conta":{"numero":"819160","saldo":100.0,"senhaTransacao":"12345678","titular":"Igor","movimentacoes":[{"data":"Mar 6, 2025, 9:55:55 PM","valor":1000000.0,"descricao":"Transferência","origem":"Igor"},{"data":"Mar 6, 2025, 10:20:54 PM","valor":1000000.0,"descricao":"Saque","origem":"Igor"},{"data":"Mar 6, 2025, 10:22:51 PM","valor":100.0,"descricao":"Saque","origem":"Igor"}]},"id":1,"nome":"Igor","nascimento":"03/02/05","cpf":"10931059682","telefone":"32948005773","email":{"email":"igor@email.com","login":"igor","dominio":"email.com"},"logradouro":{"rua":"Rua X","bairro":"Centro","numero":"86","cep":"36600000"},"login":"igor","senha":"12345678"},{"conta":{"numero":"369613","saldo":1010000.0,"senhaTransacao":"12345678","titular":"Joao","movimentacoes":[{"data":"Mar 6, 2025, 9:55:55 PM","valor":1000000.0,"descricao":"Transferência","origem":"Igor"}]},"id":2,"nome":"Joao Paulo","nascimento":"10/01/2005","cpf":"33094047653","telefone":"32988888888","email":{"email":"joao@email.com","login":"joao","dominio":"email.com"},"logradouro":{"rua":"Rua Y","bairro":"Centro","numero":"15","cep":"36601064"},"login":"joao","senha":"12345678"}]
+[{
+        "conta": {
+            "numero": "819160",
+            "saldo": 0.0,
+            "senhaTransacao": "12345678",
+            "titular": "Igor",
+            "movimentacoes": []
+        },
+        "id": 1,
+        "nome": "Igor",
+        "nascimento": "03/02/05",
+        "cpf": "10931059682",
+        "telefone": "32948005773",
+        "email": {
+            "email": "igor@email.com",
+            "login": "igor",
+            "dominio": "email.com"
+        },
+        "logradouro": {
+            "rua": "Rua X",
+            "bairro": "Centro",
+            "numero": "86",
+            "cep": "36600000"
+        },
+        "login": "igor",
+        "senha": "12345678"
+    }, {
+        "conta": {
+            "numero": "369613",
+            "saldo": 0.0,
+            "senhaTransacao": "12345678",
+            "titular": "Joao",
+            "movimentacoes": []
+        },
+        "id": 2,
+        "nome": "Joao Paulo",
+        "nascimento": "10/01/2005",
+        "cpf": "33094047653",
+        "telefone": "32988888888",
+        "email": {
+            "email": "joao@email.com",
+            "login": "joao",
+            "dominio": "email.com"
+        },
+        "logradouro": {
+            "rua": "Rua Y",
+            "bairro": "Centro",
+            "numero": "15",
+            "cep": "36601064"
+        },
+        "login": "joao",
+        "senha": "12345678"
+    }]

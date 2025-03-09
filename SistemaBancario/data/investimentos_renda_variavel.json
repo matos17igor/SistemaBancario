@@ -1,6 +1,16 @@
-[ {
+[{
         "percentualRisco": 10.0,
         "nome": "Ações",
         "valorMinimo": 1000.0,
         "taxaRendimento": 100.0
+    }, {
+        "percentualRisco": 10.0,
+        "nome": "Fundos de investimento",
+        "valorMinimo": 1000.0,
+        "taxaRendimento": 99.0
+    }, {
+        "percentualRisco": 10.0,
+        "nome": "Imóveis",
+        "valorMinimo": 100000.0,
+        "taxaRendimento": 99.0
     }]

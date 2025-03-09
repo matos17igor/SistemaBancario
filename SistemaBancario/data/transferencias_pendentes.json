@@ -1,0 +1,1 @@
+[{"destino":{"numero":"67890","saldo":500.0,"senhaTransacao":"senha456","titular":"Titular Destino","movimentacoes":[]},"origem":{"numero":"12345","saldo":1000.0,"senhaTransacao":"senha123","titular":"Titular Origem","movimentacoes":[]},"valor":300.0,"data":"Mar 9, 2025, 11:55:50 AM"}]

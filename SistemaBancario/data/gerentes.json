@@ -1,0 +1,20 @@
+[{
+        "id": 1,
+        "nome": "Gerente",
+        "nascimento": "15/03/2000",
+        "cpf": "11649146698",
+        "telefone": "3298765432",
+        "email": {
+            "email": "gerente@email.com",
+            "login": "gerente",
+            "dominio": "email.com"
+        },
+        "logradouro": {
+            "rua": "Rua das flores",
+            "bairro": "Floresta",
+            "numero": "30",
+            "cep": "30030100"
+        },
+        "login": "gerente",
+        "senha": "12345678"
+    }]

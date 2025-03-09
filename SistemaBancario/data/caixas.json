@@ -1,0 +1,20 @@
+[{
+        "id": 1,
+        "nome": "Caixa",
+        "nascimento": "12/12/1995",
+        "cpf": "11649146698",
+        "telefone": "3299998888",
+        "email": {
+            "email": "caixa@email.com",
+            "login": "caixa",
+            "dominio": "email.com"
+        },
+        "logradouro": {
+            "rua": "Rua dos bobos",
+            "bairro": "Fantasia",
+            "numero": "0",
+            "cep": "40040300"
+        },
+        "login": "caixa",
+        "senha": "12345678"
+    }]

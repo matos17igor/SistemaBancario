@@ -1,1 +1,21 @@
-[{"prazoMinimo":12,"nome":"CDB","valorMinimo":200.0,"taxaRendimento":99.0}]
+[{
+        "prazoMinimo": 12,
+        "nome": "CDB",
+        "valorMinimo": 200.0,
+        "taxaRendimento": 99.0
+    }, {
+        "prazoMinimo": 12,
+        "nome": "LCI",
+        "valorMinimo": 1000.0,
+        "taxaRendimento": 101.0
+    }, {
+        "prazoMinimo": 12,
+        "nome": "LCA",
+        "valorMinimo": 5000.0,
+        "taxaRendimento": 100.0
+    }, {
+        "prazoMinimo": 6,
+        "nome": "Tesouro Direto",
+        "valorMinimo": 50000.0,
+        "taxaRendimento": 99.0
+    }]
